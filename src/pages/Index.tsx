@@ -204,7 +204,7 @@ const Index = () => {
                 }} transition={{
                   duration: 0.6
                 }} className="text-center">
-                    <img src="/lovable-uploads/7e006d2f-542f-44d6-b173-b432e0624fef.png" alt="Dunhaven Castle" className="w-full max-w-[480px] h-auto object-cover mx-auto filter grayscale" />
+                    <img src="/lovable-uploads/AGvenue.png" alt="AG OUTDOOR VENUE" className="w-full max-w-[480px] h-auto object-cover mx-auto filter grayscale" />
                   </motion.div>
                   
                   <motion.div initial={{
@@ -215,8 +215,8 @@ const Index = () => {
                   duration: 0.6
                 }} className="text-center flex items-center justify-center">
                     <p className="uppercase text-base tracking-widest font-medium">
-                      GLENCAIRN ROAD COUNTY<br />
-                      KERRY, IRELAND
+                      17439 SELF ROAD<br />
+                      TOMBALL, TEXAS 77377
                     </p>
                   </motion.div>
                 </div>
