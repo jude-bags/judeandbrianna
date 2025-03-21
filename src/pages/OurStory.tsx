@@ -87,7 +87,7 @@ const OurStory = () => {
       }} transition={{
         duration: 0.5
       }} className="max-w-md mx-auto">
-          <img alt="Close-up of Jude and Brianna" src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390132941-7OHS9K91TVEI1NHI0T0N/olga-solodilova--Dc0PI6XWAc-unsplash.jpg?format=2500w" className="w-full aspect-[3/4] object-cover filter grayscale" />
+          <img alt="Close-up of Jude and Brianna" src="/lovable-uploads/IMG_9079.jpg" className="w-full aspect-[3/4] object-cover filter grayscale" />
         </motion.div>
       </div>
     </Layout>;
