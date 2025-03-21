@@ -1,0 +1,238 @@
+type RSVP {
+  id: ID!
+  name: String!
+  email: String!
+  attending: Boolean!
+  guests: Int
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelRSVPConnection {
+  items: [RSVP]!
+  nextToken: String
+}
+
+input ModelRSVPFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  email: ModelStringInput
+  attending: ModelBooleanInput
+  guests: ModelIntInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelRSVPFilterInput]
+  or: [ModelRSVPFilterInput]
+  not: ModelRSVPFilterInput
+}
+
+type Query {
+  getRSVP(id: ID!): RSVP
+  listRSVPS(filter: ModelRSVPFilterInput, limit: Int, nextToken: String): ModelRSVPConnection
+}
+
+input ModelRSVPConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  attending: ModelBooleanInput
+  guests: ModelIntInput
+  and: [ModelRSVPConditionInput]
+  or: [ModelRSVPConditionInput]
+  not: ModelRSVPConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateRSVPInput {
+  id: ID
+  name: String!
+  email: String!
+  attending: Boolean!
+  guests: Int
+}
+
+input UpdateRSVPInput {
+  id: ID!
+  name: String
+  email: String
+  attending: Boolean
+  guests: Int
+}
+
+input DeleteRSVPInput {
+  id: ID!
+}
+
+type Mutation {
+  createRSVP(input: CreateRSVPInput!, condition: ModelRSVPConditionInput): RSVP
+  updateRSVP(input: UpdateRSVPInput!, condition: ModelRSVPConditionInput): RSVP
+  deleteRSVP(input: DeleteRSVPInput!, condition: ModelRSVPConditionInput): RSVP
+}
+
+input ModelSubscriptionRSVPFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  attending: ModelSubscriptionBooleanInput
+  guests: ModelSubscriptionIntInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionRSVPFilterInput]
+  or: [ModelSubscriptionRSVPFilterInput]
+}
+
+type Subscription {
+  onCreateRSVP(filter: ModelSubscriptionRSVPFilterInput): RSVP @aws_subscribe(mutations: ["createRSVP"])
+  onUpdateRSVP(filter: ModelSubscriptionRSVPFilterInput): RSVP @aws_subscribe(mutations: ["updateRSVP"])
+  onDeleteRSVP(filter: ModelSubscriptionRSVPFilterInput): RSVP @aws_subscribe(mutations: ["deleteRSVP"])
+}
