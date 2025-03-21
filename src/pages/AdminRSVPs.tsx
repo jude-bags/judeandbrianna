@@ -1,169 +1,196 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listRSVPS } from '@/graphql/queries';
 import { updateRSVP } from '@/graphql/mutations';
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+  createColumnHelper,
+  ColumnDef,
+  SortingState,
+} from '@tanstack/react-table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
-import { Download } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Download, ChevronLeft, ChevronRight } from 'lucide-react';
+
+interface RSVP {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  attending: string;
+  bringingGuest: string;
+  guestFirstName?: string;
+  guestLastName?: string;
+  foodRestrictions: string;
+  adminNote?: string;
+}
 
 const client = generateClient();
+const columnHelper = createColumnHelper<RSVP>();
 
 export default function AdminRSVPs() {
-  const [rsvps, setRsvps] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [rsvps, setRsvps] = useState<RSVP[]>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRSVPs = async () => {
       const result = await client.graphql({ query: listRSVPS });
-      setRsvps(result.data.listRSVPS.items);
+      if (result.data?.listRSVPS?.items) {
+        setRsvps(result.data.listRSVPS.items as RSVP[]);
+      } else {
+        console.error('No data returned from listRSVPS query');
+      }
     };
-    fetchData();
+    fetchRSVPs();
   }, []);
 
-  const filtered = useMemo(() => {
-    return rsvps.filter(rsvp => {
-      const matchSearch = `${rsvp.firstName} ${rsvp.lastName} ${rsvp.email}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      const matchFilter =
-        filter === 'all' ||
-        (filter === 'attending' && rsvp.attending === 'yes') ||
-        (filter === 'not_attending' && rsvp.attending === 'no');
-      return matchSearch && matchFilter;
-    });
-  }, [rsvps, searchTerm, filter]);
-
-  const handleNoteChange = async (id, note) => {
-    const updated = await client.graphql({
+  const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
+    await client.graphql({
       query: updateRSVP,
-      variables: { input: { id, adminNote: note } },
+      variables: { input: { id, ...changes } },
     });
     setRsvps(prev =>
-      prev.map(rsvp => (rsvp.id === id ? { ...rsvp, adminNote: note } : rsvp))
+      prev.map(rsvp => (rsvp.id === id ? { ...rsvp, ...changes } : rsvp))
     );
   };
 
-  const exportToCSV = () => {
-    const headers = ['First Name', 'Last Name', 'Email', 'Attending', 'Guest', 'Guest Name', 'Food Restrictions', 'Note'];
-    const rows = filtered.map(r => [
-      r.firstName,
-      r.lastName,
-      r.email,
-      r.attending,
-      r.bringingGuest,
-      `${r.guestFirstName || ''} ${r.guestLastName || ''}`.trim(),
-      r.foodRestrictions,
-      r.adminNote || ''
-    ]);
-    const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'rsvps.csv';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
+    columnHelper.accessor(row => `${row.firstName} ${row.lastName}`, {
+      id: 'name',
+      header: 'Name',
+      cell: info => info.getValue(),
+    }),
+    columnHelper.accessor('email', {
+      header: 'Email',
+      cell: info => info.getValue(),
+    }),
+    columnHelper.accessor('attending', {
+      header: 'Attending',
+      cell: info => (
+        <select
+          defaultValue={info.getValue() as string}
+          onBlur={e => handleUpdate(info.row.original.id, { attending: e.target.value })}
+        >
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      ),
+    }),
+    columnHelper.accessor('bringingGuest', {
+      header: 'Bringing Guest',
+      cell: info => (
+        <select
+          defaultValue={info.getValue() as string}
+          onBlur={e => handleUpdate(info.row.original.id, { bringingGuest: e.target.value })}
+        >
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      ),
+    }),
+    columnHelper.accessor(row => `${row.guestFirstName || ''} ${row.guestLastName || ''}`.trim(), {
+      id: 'guestName',
+      header: 'Guest Name',
+      cell: info => info.getValue(),
+    }),
+    columnHelper.accessor('foodRestrictions', {
+      header: 'Food',
+      cell: info => info.getValue(),
+    }),
+    columnHelper.accessor('adminNote', {
+      header: 'Note',
+      cell: info => (
+        <Input
+          defaultValue={info.getValue() as string}
+          onBlur={e => handleUpdate(info.row.original.id, { adminNote: e.target.value })}
+        />
+      ),
+    }),
+  ], []);
 
-  const stats = useMemo(() => {
-    const attending = rsvps.filter(r => r.attending === 'yes');
-    const guests = attending.reduce((acc, r) => acc + (r.bringingGuest === 'yes' ? 1 : 0), 0);
-    const foodMap = {};
-    attending.forEach(r => {
-      const restriction = r.foodRestrictions?.trim().toLowerCase() || 'none';
-      foodMap[restriction] = (foodMap[restriction] || 0) + 1;
-    });
-    return {
-      total: rsvps.length,
-      attending: attending.length,
-      guests,
-      foodMap
-    };
-  }, [rsvps]);
+  const table = useReactTable({
+    data: rsvps,
+    columns,
+    state: { globalFilter, sorting },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold">RSVP Dashboard</h2>
-        <Button onClick={exportToCSV} className="flex items-center gap-2">
+        <Button onClick={() => table.setPageIndex(0)} className="gap-2">
           <Download size={16} /> Export CSV
         </Button>
       </div>
 
-      <div className="flex gap-4 mb-4">
-        <Input
-          placeholder="Search name or email..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          className="max-w-sm"
-        />
-        <select
-          value={filter}
-          onChange={e => setFilter(e.target.value)}
-          className="border px-3 py-2 rounded"
-        >
-          <option value="all">All</option>
-          <option value="attending">Attending</option>
-          <option value="not_attending">Not Attending</option>
-        </select>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-100 p-4 rounded">
-          <p className="text-sm text-gray-500">Total RSVPs</p>
-          <p className="text-xl font-semibold">{stats.total}</p>
-        </div>
-        <div className="bg-green-100 p-4 rounded">
-          <p className="text-sm text-gray-500">Attending</p>
-          <p className="text-xl font-semibold">{stats.attending}</p>
-        </div>
-        <div className="bg-blue-100 p-4 rounded">
-          <p className="text-sm text-gray-500">+1 Guests</p>
-          <p className="text-xl font-semibold">{stats.guests}</p>
-        </div>
-        <div className="bg-yellow-100 p-4 rounded">
-          <p className="text-sm text-gray-500">Food Restrictions</p>
-          <p className="text-sm">
-            {Object.entries(stats.foodMap).map(([key, val]) => (
-              <div key={key}>{key}: {val as number}</div>
-            ))}
-          </p>
-        </div>
-      </div>
+      <Input
+        value={globalFilter ?? ''}
+        onChange={e => setGlobalFilter(e.target.value)}
+        placeholder="Search RSVPs..."
+        className="max-w-sm mb-4"
+      />
 
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Attending</TableHead>
-            <TableHead>Guest</TableHead>
-            <TableHead>Food</TableHead>
-            <TableHead>Note</TableHead>
-          </TableRow>
+          {table.getHeaderGroups().map(headerGroup => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <TableHead
+                  key={header.id}
+                  onClick={header.column.getToggleSortingHandler()}
+                  className="cursor-pointer"
+                >
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {header.column.getIsSorted() ? (header.column.getIsSorted() === 'asc' ? ' ↑' : ' ↓') : ''}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
         </TableHeader>
         <TableBody>
-          {filtered.map(rsvp => (
-            <TableRow key={rsvp.id}>
-              <TableCell>{rsvp.firstName} {rsvp.lastName}</TableCell>
-              <TableCell>{rsvp.email}</TableCell>
-              <TableCell>{rsvp.attending}</TableCell>
-              <TableCell>{rsvp.bringingGuest === 'yes' ? `${rsvp.guestFirstName || ''} ${rsvp.guestLastName || ''}` : '—'}</TableCell>
-              <TableCell>{rsvp.foodRestrictions}</TableCell>
-              <TableCell>
-                <Input
-                  defaultValue={rsvp.adminNote || ''}
-                  onBlur={e => handleNoteChange(rsvp.id, e.target.value)}
-                  className="text-sm"
-                />
-              </TableCell>
+          {table.getRowModel().rows.map(row => (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      <div className="flex justify-between items-center mt-6">
+        <Button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+          variant="outline"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" /> Prev
+        </Button>
+
+        <span className="text-sm">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+
+        <Button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+          variant="outline"
+        >
+          Next <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 }
