@@ -54,7 +54,7 @@ export default function RSVPForm() {
     e.preventDefault();
 
     try {
-      await client.graphql({
+      const response = await client.graphql({
         query: createRSVP,
         variables: {
           input: {
@@ -63,6 +63,14 @@ export default function RSVPForm() {
           },
         },
       });
+      
+      console.log("GraphQL response:", response);
+      
+      const data = response.data?.createRSVP;
+      if (!data) {
+        throw new Error("RSVP not created. Response data was empty.");
+      }
+      
 
       toast({
         title: "RSVP Submitted",
@@ -86,7 +94,7 @@ export default function RSVPForm() {
       if (error?.errors) {
         console.error("GraphQL errors:", error.errors);
       }
-      
+
       toast({
         title: "Submission Failed",
         description: "Something went wrong. Please try again.",
