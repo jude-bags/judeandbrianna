@@ -11,6 +11,7 @@ import TravelAndStay from "./pages/TravelAndStay";
 import Registry from "./pages/Registry";
 import FAQS from "./pages/FAQS";
 import RSVP from "./pages/RSVP";
+import AdminRSVPs from "./pages/AdminRSVPs";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/faqs" element={<FAQS />} />
             <Route path="/rsvp" element={<RSVP />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/admin/rsvps" element={<AdminRSVPs />} />
           </Routes>
         </AnimatePresence>
       </BrowserRouter>
