@@ -202,13 +202,13 @@
     "apisite": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-342ac-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "Parameters": {
           "AppSyncApiName": "site",
           "DynamoDBBillingMode": "PAY_PER_REQUEST",
           "DynamoDBEnableServerSideEncryption": false,
-          "S3DeploymentBucket": "amplify-site-dev-342ac-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/98d148e8c89c18abfa1a34e40a28493f2d3ea554",
+          "S3DeploymentBucket": "amplify-site-dev-60f34-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/5232ac1eb3f84ee8ad4872c912e0c08a6ad9ea5f",
           "env": "dev"
         }
       }

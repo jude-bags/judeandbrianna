@@ -1,15 +1,15 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-site-dev-342ac-authRole",
-      "UnauthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-342ac-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-342ac-authRole",
+      "AuthRoleName": "amplify-site-dev-60f34-authRole",
+      "UnauthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-60f34-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-60f34-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-site-dev-342ac-deployment",
-      "UnauthRoleName": "amplify-site-dev-342ac-unauthRole",
-      "StackName": "amplify-site-dev-342ac",
-      "StackId": "arn:aws:cloudformation:us-east-2:772162467973:stack/amplify-site-dev-342ac/8256ac10-05f5-11f0-b5b3-06bf8df6ba19",
-      "AmplifyAppId": "drf7ksvvwj3el"
+      "DeploymentBucketName": "amplify-site-dev-60f34-deployment",
+      "UnauthRoleName": "amplify-site-dev-60f34-unauthRole",
+      "StackName": "amplify-site-dev-60f34",
+      "StackId": "arn:aws:cloudformation:us-east-2:772162467973:stack/amplify-site-dev-60f34/a11c1df0-05fb-11f0-8cff-0afd5ea62f09",
+      "AmplifyAppId": "d22mu2dnxjqtdx"
     }
   },
   "api": {
@@ -27,16 +27,16 @@
           },
           "additionalAuthenticationProviders": []
         },
-        "GraphQLAPIIdOutput": "pqe4goopbrgutg7atwdnp4maau",
-        "GraphQLAPIEndpointOutput": "https://gyo4wg3uxnbn5ikwkcqngxztvu.appsync-api.us-east-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-by3smoabezewla5cs3wwb22pti"
+        "GraphQLAPIIdOutput": "gupqn3gbevdh5m7hwwgqwglkx4",
+        "GraphQLAPIEndpointOutput": "https://di5xzvontfh75lddaggsojoy3y.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-y4zlecblcve3vgx5x6d5nnp3fu"
       },
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-342ac-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apisite"
       },
-      "lastPushTimeStamp": "2025-03-21T01:49:57.669Z",
-      "lastPushDirHash": "6vtxjKSsrF/GtGetNB9gZXmxdGE="
+      "lastPushTimeStamp": "2025-03-21T02:34:34.389Z",
+      "lastPushDirHash": "2emZcF3iYo083JQKQTjd1UnD/E8="
     }
   }
 }

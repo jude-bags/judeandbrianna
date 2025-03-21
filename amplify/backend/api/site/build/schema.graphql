@@ -1,9 +1,14 @@
 type RSVP {
   id: ID!
-  name: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  attending: Boolean!
-  guests: Int
+  attending: String!
+  bringingGuest: String
+  guestFirstName: String
+  guestLastName: String
+  foodRestrictions: String
+  timestamp: AWSDateTime
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -165,10 +170,15 @@ type ModelRSVPConnection {
 
 input ModelRSVPFilterInput {
   id: ModelIDInput
-  name: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
   email: ModelStringInput
-  attending: ModelBooleanInput
-  guests: ModelIntInput
+  attending: ModelStringInput
+  bringingGuest: ModelStringInput
+  guestFirstName: ModelStringInput
+  guestLastName: ModelStringInput
+  foodRestrictions: ModelStringInput
+  timestamp: ModelStringInput
   createdAt: ModelStringInput
   updatedAt: ModelStringInput
   and: [ModelRSVPFilterInput]
@@ -182,10 +192,15 @@ type Query {
 }
 
 input ModelRSVPConditionInput {
-  name: ModelStringInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
   email: ModelStringInput
-  attending: ModelBooleanInput
-  guests: ModelIntInput
+  attending: ModelStringInput
+  bringingGuest: ModelStringInput
+  guestFirstName: ModelStringInput
+  guestLastName: ModelStringInput
+  foodRestrictions: ModelStringInput
+  timestamp: ModelStringInput
   and: [ModelRSVPConditionInput]
   or: [ModelRSVPConditionInput]
   not: ModelRSVPConditionInput
@@ -195,18 +210,28 @@ input ModelRSVPConditionInput {
 
 input CreateRSVPInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
   email: String!
-  attending: Boolean!
-  guests: Int
+  attending: String!
+  bringingGuest: String
+  guestFirstName: String
+  guestLastName: String
+  foodRestrictions: String
+  timestamp: AWSDateTime
 }
 
 input UpdateRSVPInput {
   id: ID!
-  name: String
+  firstName: String
+  lastName: String
   email: String
-  attending: Boolean
-  guests: Int
+  attending: String
+  bringingGuest: String
+  guestFirstName: String
+  guestLastName: String
+  foodRestrictions: String
+  timestamp: AWSDateTime
 }
 
 input DeleteRSVPInput {
@@ -221,10 +246,15 @@ type Mutation {
 
 input ModelSubscriptionRSVPFilterInput {
   id: ModelSubscriptionIDInput
-  name: ModelSubscriptionStringInput
+  firstName: ModelSubscriptionStringInput
+  lastName: ModelSubscriptionStringInput
   email: ModelSubscriptionStringInput
-  attending: ModelSubscriptionBooleanInput
-  guests: ModelSubscriptionIntInput
+  attending: ModelSubscriptionStringInput
+  bringingGuest: ModelSubscriptionStringInput
+  guestFirstName: ModelSubscriptionStringInput
+  guestLastName: ModelSubscriptionStringInput
+  foodRestrictions: ModelSubscriptionStringInput
+  timestamp: ModelSubscriptionStringInput
   createdAt: ModelSubscriptionStringInput
   updatedAt: ModelSubscriptionStringInput
   and: [ModelSubscriptionRSVPFilterInput]
