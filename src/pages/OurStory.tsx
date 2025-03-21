@@ -17,7 +17,7 @@ const OurStory = () => {
           duration: 0.5
         }}>
             <div className="relative">
-              <img alt="Jude and Brianna by the lake with their dogs" src="/lovable-uploads/IMG_9078.jpg" className="w-full aspect-[4/5] object-cover filter" />
+              <img alt="Jude and Brianna by the lake with their dogs" src="/lovable-uploads/IMG_9073.jpg" className="w-full aspect-[4/5] object-cover filter" />
             </div>
           </motion.div>
           
@@ -36,8 +36,8 @@ const OurStory = () => {
             </p>
             
             <div className="grid grid-cols-2 gap-6">
-              <img alt="Jude and Brianna walking" src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390132933-7HFYYX20Q1BECZFEA2WG/olga-solodilova-7CkaGO6DiJQ-unsplash.jpg?format=2500w" className="w-full aspect-square object-cover filter grayscale" />
-              <img alt="Jude and Brianna by the lake" src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390132929-QY5PFNSPUFYJ33VFR4YU/olga-solodilova-f7ibaLlie6w-unsplash.jpg?format=2500w" className="w-full aspect-square object-cover filter" />
+              <img alt="Jude and Brianna walking" src="/lovable-uploads/IMG_9074.jpg" className="w-full aspect-square object-cover filter grayscale" />
+              <img alt="Jude and Brianna by the lake" src="/lovable-uploads/IMG_9077.jpg" className="w-full aspect-square object-cover filter" />
             </div>
           </motion.div>
 
