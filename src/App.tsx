@@ -13,6 +13,8 @@ import FAQS from "./pages/FAQS";
 import RSVP from "./pages/RSVP";
 import AdminRSVPs from "./pages/AdminRSVPs";
 import NotFound from "./pages/NotFound";
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 const queryClient = new QueryClient();
 
@@ -31,7 +33,24 @@ const App = () => (
             <Route path="/faqs" element={<FAQS />} />
             <Route path="/rsvp" element={<RSVP />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/admin/rsvps" element={<AdminRSVPs />} />
+            <Route path="/admin/rsvps" 
+            element={
+              <Authenticator loginMechanisms={['email']}>
+                {({ signOut, user }) => (
+                  <div className="p-4">
+                    <div className="flex justify-between mb-4">
+                      <span className="text-sm text-gray-600">Signed in as {user?.username}</span>
+                      <button onClick={signOut} className="text-sm underline">
+                        Sign out
+                      </button>
+                    </div>
+                    <AdminRSVPs />
+                  </div>
+                )}
+              </Authenticator>
+            }
+          />
+            
           </Routes>
         </AnimatePresence>
       </BrowserRouter>
