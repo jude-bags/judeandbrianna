@@ -62,7 +62,7 @@ const OurStory = () => {
         }} transition={{
           duration: 0.5
         }}>
-            <img alt="Jude with the dogs" src="/lovable-uploads/IMG_9079.jpg" className="w-full aspect-square object-cover filter" />
+            <img alt="Jude with the dogs" src="/lovable-uploads/IMG_9079.JPG" className="w-full aspect-square object-cover filter" />
           </motion.div>
           
           <p className="text-base leading-relaxed mt-16 mb-8 max-w-xs mx-auto">
@@ -87,7 +87,7 @@ const OurStory = () => {
       }} transition={{
         duration: 0.5
       }} className="max-w-md mx-auto">
-          <img alt="Close-up of Jude and Brianna" src="/lovable-uploads/IMG_9079.jpg" className="w-full aspect-[3/4] object-cover filter grayscale" />
+          <img alt="Close-up of Jude and Brianna" src="/lovable-uploads/IMG_9080.JPG" className="w-full aspect-[3/4] object-cover filter grayscale" />
         </motion.div>
       </div>
     </Layout>;
