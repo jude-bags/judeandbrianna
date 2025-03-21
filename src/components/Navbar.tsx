@@ -68,6 +68,9 @@ export default function Navbar() {
             <Link to="/rsvp" className="nav-link text-xs tracking-wider border border-black px-6 py-3 text-black">
               RSVP
             </Link>
+            <Link to="/admin/rsvps" className="nav-link text-xs tracking-wider border border-wedding-black px-6 py-3 text-black hover:bg-wedding-black hover:text-white transition">
+              ADMIN
+            </Link>
           </nav>
           
           <button onClick={toggleMobileMenu} className="md:hidden p-2 text-black focus:outline-none" aria-label="Toggle menu">
@@ -92,6 +95,9 @@ export default function Navbar() {
               </Link>
               <Link to="/rsvp" className="block py-2 nav-link text-black" onClick={() => setMobileMenuOpen(false)}>
                 RSVP
+              </Link>
+              <Link to="/admin/rsvps" className="block py-2 nav-link text-black" onClick={() => setMobileMenuOpen(false)}>
+                ADMIN
               </Link>
             </div>
           </div>

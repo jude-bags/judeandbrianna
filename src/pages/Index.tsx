@@ -7,14 +7,6 @@ const Index = () => {
   // Wedding date - September 26, 2025
   const weddingDate = new Date('2025-09-26T00:00:00');
   return <Layout className="bg-white">
-    <div className="absolute top-4 right-4 z-50">
-    <a
-      href="/admin/rsvps"
-      className="text-xs uppercase tracking-widest border border-wedding-black px-3 py-2 hover:bg-wedding-black hover:text-white transition-all rounded"
-    >
-      Admin
-    </a>
-  </div>
   <div className="min-h-screen flex flex-col"></div>
       <div className="min-h-screen flex flex-col">
         {/* Header Section with Main Image */}
