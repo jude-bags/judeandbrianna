@@ -24,7 +24,7 @@ const Index = () => {
                 delay: 0.2
               }} className="w-full max-w-[210px] self-center">
                   <AspectRatio ratio={3 / 4} className="w-full">
-                    <img alt="Wedding details" className="w-full h-full object-cover filter grayscale" src="/lovable-uploads/public/lovable-uploads/IMG_9071.jpg" />
+                    <img alt="Wedding details" className="w-full h-full object-cover filter grayscale" src="/lovable-uploads/IMG_9071.jpg" />
                   </AspectRatio>
                 </motion.div>
 
