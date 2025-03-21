@@ -17,7 +17,7 @@ const OurStory = () => {
           duration: 0.5
         }}>
             <div className="relative">
-              <img alt="Jude and Brianna by the lake with their dogs" src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390132924-XISRZGX3DUQD9UNHT04R/olga-solodilova-OK62mLojtY4-unsplash.jpg?format=2500w" className="w-full aspect-[4/5] object-cover filter" />
+              <img alt="Jude and Brianna by the lake with their dogs" src="/lovable-uploads/IMG_9078.jpg" className="w-full aspect-[4/5] object-cover filter" />
             </div>
           </motion.div>
           
