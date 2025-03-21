@@ -15,8 +15,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Download, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { Download, ChevronLeft, ChevronRight, Trash2, Home } from 'lucide-react';
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
 interface RSVP {
   id: string;
@@ -41,6 +42,7 @@ export default function AdminRSVPs() {
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRSVPs = async () => {
@@ -120,13 +122,13 @@ export default function AdminRSVPs() {
 
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
     {
-      id: 'delete',
+      id: 'actions',
       header: '',
       cell: info => (
-        <button onClick={() => handleDelete(info.row.original.id)} className="text-red-400 hover:text-red-300">
+        <button onClick={() => handleDelete(info.row.original.id)} className="text-red-500 hover:text-red-400">
           <Trash2 size={16} />
         </button>
-      )
+      ),
     },
     columnHelper.accessor(row => `${row.firstName} ${row.lastName}`, {
       id: 'name',
@@ -193,7 +195,7 @@ export default function AdminRSVPs() {
         />
       ),
     }),
-  ], []);
+  ], [handleUpdate]);
 
   const table = useReactTable({
     data: filteredData,
@@ -212,9 +214,14 @@ export default function AdminRSVPs() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">RSVP Dashboard</h2>
-          <Button onClick={exportCSV} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
-            <Download size={16} /> Export CSV
-          </Button>
+          <div className="flex gap-3">
+            <Button onClick={() => navigate('/')} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
+              <Home size={16} /> Home
+            </Button>
+            <Button onClick={exportCSV} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
+              <Download size={16} /> Export CSV
+            </Button>
+          </div>
         </div>
 
         <div className="flex gap-4 mb-4 items-center flex-wrap">
@@ -251,7 +258,7 @@ export default function AdminRSVPs() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
                 {headerGroup.headers.map(header => (
                   <TableHead
                     key={header.id}
