@@ -3,9 +3,6 @@ import { useToast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { createRSVP } from '@/graphql/mutations'; // adjust path if needed
-import { EventBridgeClient, PutEventsCommand } from '@aws-sdk/client-eventbridge';
-const ebClient = new EventBridgeClient({ region: 'us-east-2' });
-
 
 type FormData = {
   firstName: string;
@@ -55,7 +52,7 @@ export default function RSVPForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     try {
       await client.graphql({
         query: createRSVP,
@@ -66,26 +63,7 @@ export default function RSVPForm() {
           },
         },
       });
-      const result = await client.graphql({ query: createRSVP, variables: { input: { ...formData, timestamp: new Date().toISOString() } } });
-      if (!result.data || !result.data.createRSVP) {
-        throw new Error("GraphQL mutation failed or returned null.");
-  
-      // ➕ Send RSVP event to EventBridge
-      await ebClient.send(new PutEventsCommand({
-        Entries: [
-          {
-            Source: 'wedding.site',
-            DetailType: 'RSVP_SUBMITTED',
-            Detail: JSON.stringify({
-              firstName: formData.firstName,
-              email: formData.email,
-              attending: formData.attending,
-            }),
-            EventBusName: 'default',
-          },
-        ],
-      }));
-  
+
       toast({
         title: "RSVP Submitted",
         description: "Thank you for your response. We look forward to celebrating with you!",
@@ -102,11 +80,11 @@ export default function RSVPForm() {
         guestLastName: '',
         foodRestrictions: '',
       });
-    } } catch (error) {
+    } catch (error) {
       console.error("Error submitting RSVP:", error);
       toast({
         title: "Submission Failed",
-        description: error?.message || "Something went wrong. Please try again.",
+        description: "Something went wrong. Please try again.",
         duration: 5000,
         variant: "destructive",
       });
