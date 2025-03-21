@@ -3,6 +3,9 @@ import { useToast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
 import { generateClient } from 'aws-amplify/api';
 import { createRSVP } from '@/graphql/mutations'; // adjust path if needed
+import { EventBridgeClient, PutEventsCommand } from '@aws-sdk/client-eventbridge';
+const ebClient = new EventBridgeClient({ region: 'us-east-2' });
+
 
 type FormData = {
   firstName: string;
@@ -52,7 +55,7 @@ export default function RSVPForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
       await client.graphql({
         query: createRSVP,
@@ -63,7 +66,23 @@ export default function RSVPForm() {
           },
         },
       });
-
+  
+      // ➕ Send RSVP event to EventBridge
+      await ebClient.send(new PutEventsCommand({
+        Entries: [
+          {
+            Source: 'wedding.site',
+            DetailType: 'RSVP_SUBMITTED',
+            Detail: JSON.stringify({
+              firstName: formData.firstName,
+              email: formData.email,
+              attending: formData.attending,
+            }),
+            EventBusName: 'default',
+          },
+        ],
+      }));
+  
       toast({
         title: "RSVP Submitted",
         description: "Thank you for your response. We look forward to celebrating with you!",
