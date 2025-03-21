@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listRSVPS } from '@/graphql/queries';
-import { updateRSVP } from '@/graphql/mutations';
+import { updateRSVP, deleteRSVP } from '@/graphql/mutations';
 import {
   flexRender,
   getCoreRowModel,
@@ -15,7 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Download, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
 import clsx from 'clsx';
 
 interface RSVP {
@@ -64,6 +64,17 @@ export default function AdminRSVPs() {
     );
   };
 
+  const handleDelete = async (id: string) => {
+    const confirmed = confirm("Are you sure you want to delete this RSVP?");
+    if (!confirmed) return;
+
+    await client.graphql({
+      query: deleteRSVP,
+      variables: { input: { id } },
+    });
+    setRsvps(prev => prev.filter(rsvp => rsvp.id !== id));
+  };
+
   const filteredData = useMemo(() => {
     return rsvps.filter(rsvp => {
       const matchesGlobal = `${rsvp.firstName} ${rsvp.lastName} ${rsvp.email}`
@@ -108,6 +119,15 @@ export default function AdminRSVPs() {
   };
 
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
+    {
+      id: 'delete',
+      header: '',
+      cell: info => (
+        <button onClick={() => handleDelete(info.row.original.id)} className="text-red-400 hover:text-red-300">
+          <Trash2 size={16} />
+        </button>
+      )
+    },
     columnHelper.accessor(row => `${row.firstName} ${row.lastName}`, {
       id: 'name',
       header: 'Name',
@@ -247,7 +267,7 @@ export default function AdminRSVPs() {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows.map(row => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} className="hover:bg-zinc-800">
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id} className="text-white">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
