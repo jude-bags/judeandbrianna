@@ -39,6 +39,7 @@ export default function AdminRSVPs() {
   const [globalFilter, setGlobalFilter] = useState('');
   const [attendingFilter, setAttendingFilter] = useState('');
   const [guestFilter, setGuestFilter] = useState('');
+  const [foodFilter, setFoodFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
 
   useEffect(() => {
@@ -70,14 +71,40 @@ export default function AdminRSVPs() {
         .includes(globalFilter.toLowerCase());
       const matchesAttending = attendingFilter ? rsvp.attending === attendingFilter : true;
       const matchesGuest = guestFilter ? rsvp.bringingGuest === guestFilter : true;
-      return matchesGlobal && matchesAttending && matchesGuest;
+      const matchesFood = foodFilter ? rsvp.foodRestrictions?.toLowerCase().includes(foodFilter.toLowerCase()) : true;
+      return matchesGlobal && matchesAttending && matchesGuest && matchesFood;
     });
-  }, [rsvps, globalFilter, attendingFilter, guestFilter]);
+  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter]);
 
   const clearFilters = () => {
     setGlobalFilter('');
     setAttendingFilter('');
     setGuestFilter('');
+    setFoodFilter('');
+  };
+
+  const guestCount = filteredData.filter(r => r.bringingGuest === 'yes').length;
+  const attendeeCount = filteredData.filter(r => r.attending === 'yes').length;
+
+  const exportCSV = () => {
+    const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Note'];
+    const rows = filteredData.map(r => [
+      `${r.firstName} ${r.lastName}`,
+      r.email,
+      r.attending,
+      r.bringingGuest,
+      `${r.guestFirstName || ''} ${r.guestLastName || ''}`.trim(),
+      r.foodRestrictions,
+      r.adminNote || '',
+    ]);
+    const csv = [headers, ...rows].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rsvps.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
@@ -98,13 +125,10 @@ export default function AdminRSVPs() {
         <select
           defaultValue={info.getValue() as string}
           onBlur={e => handleUpdate(info.row.original.id, { attending: e.target.value })}
-          className={clsx(
-            'px-2 py-1 rounded',
-            {
-              'bg-green-100 text-green-800': info.getValue() === 'yes',
-              'bg-red-100 text-red-800': info.getValue() === 'no',
-            }
-          )}
+          className={clsx('px-2 py-1 rounded', {
+            'bg-green-100 text-green-800': info.getValue() === 'yes',
+            'bg-red-100 text-red-800': info.getValue() === 'no',
+          })}
         >
           <option value="yes">Yes</option>
           <option value="no">No</option>
@@ -118,13 +142,10 @@ export default function AdminRSVPs() {
         <select
           defaultValue={info.getValue() as string}
           onBlur={e => handleUpdate(info.row.original.id, { bringingGuest: e.target.value })}
-          className={clsx(
-            'px-2 py-1 rounded',
-            {
-              'bg-green-100 text-green-800': info.getValue() === 'yes',
-              'bg-gray-200 text-gray-800': info.getValue() === 'no',
-            }
-          )}
+          className={clsx('px-2 py-1 rounded', {
+            'bg-green-100 text-green-800': info.getValue() === 'yes',
+            'bg-gray-200 text-gray-800': info.getValue() === 'no',
+          })}
         >
           <option value="yes">Yes</option>
           <option value="no">No</option>
@@ -166,10 +187,10 @@ export default function AdminRSVPs() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 bg-black text-white min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold">RSVP Dashboard</h2>
-        <Button onClick={() => table.setPageIndex(0)} className="gap-2">
+        <Button onClick={exportCSV} className="gap-2">
           <Download size={16} /> Export CSV
         </Button>
       </div>
@@ -181,29 +202,27 @@ export default function AdminRSVPs() {
           placeholder="Search RSVPs..."
           className="max-w-sm"
         />
-        <select
-          value={attendingFilter}
-          onChange={e => setAttendingFilter(e.target.value)}
-          className="border px-4 py-2 rounded text-sm"
-        >
+        <select value={attendingFilter} onChange={e => setAttendingFilter(e.target.value)} className="border px-4 py-2 rounded text-sm text-black">
           <option value="">All Attending</option>
           <option value="yes">Attending</option>
           <option value="no">Not Attending</option>
         </select>
-        <select
-          value={guestFilter}
-          onChange={e => setGuestFilter(e.target.value)}
-          className="border px-4 py-2 rounded text-sm"
-        >
+        <select value={guestFilter} onChange={e => setGuestFilter(e.target.value)} className="border px-4 py-2 rounded text-sm text-black">
           <option value="">All Guests</option>
           <option value="yes">Bringing Guest</option>
           <option value="no">No Guest</option>
         </select>
+        <Input
+          value={foodFilter}
+          onChange={e => setFoodFilter(e.target.value)}
+          placeholder="Filter by food restriction..."
+          className="max-w-xs"
+        />
         <Button onClick={clearFilters} variant="outline" className="text-sm">
           Clear Filters
         </Button>
         <span className="ml-auto text-sm font-medium">
-          Showing {filteredData.length} RSVP{filteredData.length !== 1 ? 's' : ''}
+          Showing {filteredData.length} RSVP{filteredData.length !== 1 ? 's' : ''} | {attendeeCount} Attending, {guestCount} +1s
         </span>
       </div>
 
@@ -238,11 +257,7 @@ export default function AdminRSVPs() {
       </Table>
 
       <div className="flex justify-between items-center mt-6">
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-          variant="outline"
-        >
+        <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} variant="outline">
           <ChevronLeft className="mr-2 h-4 w-4" /> Prev
         </Button>
 
@@ -250,11 +265,7 @@ export default function AdminRSVPs() {
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </span>
 
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-          variant="outline"
-        >
+        <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} variant="outline">
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
