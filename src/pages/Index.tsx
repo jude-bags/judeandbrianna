@@ -7,7 +7,6 @@ const Index = () => {
   // Wedding date - September 26, 2025
   const weddingDate = new Date('2025-09-26T00:00:00');
   return <Layout className="bg-white">
-  <div className="min-h-screen flex flex-col"></div>
       <div className="min-h-screen flex flex-col">
         {/* Header Section with Main Image */}
         <section className="min-h-screen flex items-center justify-center">
