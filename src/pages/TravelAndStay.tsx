@@ -48,7 +48,7 @@ const TravelAndStay = () => {
                   GETTING<br />HERE
                 </h2>
                 <p className="text-base mb-8 leading-relaxed">
-                  We're thrilled that you're planning to join us for our wedding celebration! Here's some information to help you make your way to Dunhaven Castle in County Kerry, Ireland.
+                We are so excited to celebrate this special day with you! To help make your journey as smooth as possible, here are some details on how to get to our celebration in Houston, TX. Whether you're coming from near or far, we can't wait to share this unforgettable day with you. Safe travels, and hope to see you soon!
                 </p>
               </motion.div>
             </div>
