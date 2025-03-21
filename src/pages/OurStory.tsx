@@ -71,6 +71,7 @@ const OurStory = () => {
           
           <p className="text-base leading-relaxed mt-16 max-w-xs mx-auto">
           Now, we invite you to share in what might be our most beautiful moment yet. As we embark on this new chapter, we can’t wait to celebrate with family and friends.
+          
           See you in Houston, TX!
 
 
