@@ -56,9 +56,10 @@ export default function RSVPForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      await client.graphql({
+      // ✅ Step 1: Save the RSVP data via GraphQL
+      const response = await client.graphql({
         query: createRSVP,
         variables: {
           input: {
@@ -68,21 +69,45 @@ export default function RSVPForm() {
         },
       });
   
-      // ✅ Step 2: Emit RSVP event to EventBridge
-      await ebClient.send(new PutEventsCommand({
-        Entries: [
-          {
-            Source: 'wedding.site',
-            DetailType: 'RSVP_SUBMITTED',
-            Detail: JSON.stringify({
-              firstName: formData.firstName,
-              email: formData.email,
-              attending: formData.attending,
-            }),
-            EventBusName: 'default',
-          },
-        ],
-      }));
+      console.log("GraphQL response:", response);
+  
+      if (!response?.data?.createRSVP) {
+        throw new Error("RSVP creation returned empty response.");
+      }
+  
+      try {
+        // ✅ Step 2: Emit RSVP event to EventBridge
+        const eventResponse = await ebClient.send(new PutEventsCommand({
+          Entries: [
+            {
+              Source: 'wedding.site',
+              DetailType: 'RSVP_SUBMITTED',
+              Detail: JSON.stringify({
+                firstName: formData.firstName,
+                email: formData.email,
+                attending: formData.attending,
+              }),
+              EventBusName: 'default',
+            },
+          ],
+        }));
+  
+        console.log("EventBridge response:", eventResponse);
+  
+        if (eventResponse?.FailedEntryCount && eventResponse.FailedEntryCount > 0) {
+          throw new Error("EventBridge failed to send some entries.");
+        }
+  
+      } catch (eventError) {
+        console.error("EventBridge error:", eventError);
+        toast({
+          title: "Submission Partially Failed",
+          description: "RSVP saved, but email confirmation may not be sent.",
+          duration: 5000,
+          variant: "destructive",
+        });
+        return;
+      }
       
 
       toast({
