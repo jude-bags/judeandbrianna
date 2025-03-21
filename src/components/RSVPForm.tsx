@@ -80,8 +80,13 @@ export default function RSVPForm() {
         guestLastName: '',
         foodRestrictions: '',
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting RSVP:", error);
+    
+      if (error?.errors) {
+        console.error("GraphQL errors:", error.errors);
+      }
+      
       toast({
         title: "Submission Failed",
         description: "Something went wrong. Please try again.",
