@@ -1,0 +1,150 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    --primary: 0 0% 13%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 13%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 13%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 13%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 13%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 13%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 13%;
+
+    --secondary: 0 0% 25%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 25%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 0 0% 83%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-normal tracking-wide;
+  }
+}
+
+@layer components {
+  .wedding-container {
+    @apply w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8;
+  }
+
+  .page-title {
+    @apply text-5xl md:text-6xl font-serif text-center mb-12 pt-16 pb-8 tracking-wide;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-serif mb-6 tracking-wide;
+  }
+
+  .nav-link {
+    @apply uppercase text-xs tracking-widest font-sans hover:text-wedding-light transition-colors duration-300 font-medium;
+  }
+
+  .nav-button {
+    @apply uppercase text-xs tracking-widest font-sans px-4 py-2 border border-wedding-black hover:bg-wedding-black hover:text-white transition-colors duration-300 font-medium;
+  }
+
+  .btn {
+    @apply uppercase text-xs tracking-widest font-sans px-4 py-2 border border-wedding-black hover:bg-wedding-black hover:text-white transition-colors duration-300 font-medium inline-block;
+  }
+
+  .form-input {
+    @apply w-full bg-transparent border-b border-wedding-gray-400 py-2 px-0 text-wedding-black placeholder-wedding-gray-500 focus:outline-none focus:border-wedding-black transition-colors duration-300;
+  }
+
+  .input-label {
+    @apply text-xs text-wedding-muted mb-1 block;
+  }
+}
+
+.form-radio {
+  @apply w-4 h-4 border-2 border-wedding-gray-400 rounded-full appearance-none checked:bg-wedding-black checked:border-wedding-black transition-all duration-300 focus:outline-none focus:ring-0;
+}
+
+/* Custom fade-in animation for page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 400ms, transform 400ms;
+}
+
+/* Ensure images don't stretch */
+img {
+  object-fit: cover;
+}
