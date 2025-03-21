@@ -190,8 +190,7 @@ const Index = () => {
                   duration: 0.6
                 }} className="text-center flex items-center justify-center">
                     <p className="uppercase text-base tracking-widest font-medium">
-                      DUNHAVEN CASTLE<br />
-                      HOTEL & RESTAURANT
+                    AG OUTDOOR VENUE
                     </p>
                   </motion.div>
                   
