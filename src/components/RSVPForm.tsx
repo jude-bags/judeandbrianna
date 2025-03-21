@@ -189,7 +189,7 @@ export default function RSVPForm() {
             <Link to="/registry" className="uppercase px-6 py-3 border border-wedding-black hover:bg-wedding-black hover:text-white transition-colors duration-300 text-sm tracking-widest font-medium text-center">
               REGISTRY
             </Link>
-            <Link to="/travel-stay" className="uppercase px-6 py-3 border border-wedding-black hover:bg-wedding-black hover:text-white transition-colors duration-300 text-sm tracking-widest font-medium text-center">
+            <Link to="/registry" className="uppercase px-6 py-3 border border-wedding-black hover:bg-wedding-black hover:text-white transition-colors duration-300 text-sm tracking-widest font-medium text-center">
               HONEYMOON FUND
             </Link>
           </div>
