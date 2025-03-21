@@ -62,7 +62,7 @@ const OurStory = () => {
         }} transition={{
           duration: 0.5
         }}>
-            <img alt="Jude with the dogs" src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390132938-DP4YG57H36VTVJ0O0BNC/olga-solodilova-5RjqNf7a49E-unsplash.jpg?format=2500w" className="object-contain grayscale" />
+            <img alt="Jude with the dogs" src="/lovable-uploads/IMG_9079.jpg" className="w-full aspect-square object-cover filter" />
           </motion.div>
           
           <p className="text-base leading-relaxed mt-16 mb-8 max-w-xs mx-auto">
