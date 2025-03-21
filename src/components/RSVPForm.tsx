@@ -66,6 +66,9 @@ export default function RSVPForm() {
           },
         },
       });
+      const result = await client.graphql({ query: createRSVP, variables: { input: { ...formData, timestamp: new Date().toISOString() } } });
+      if (!result.data || !result.data.createRSVP) {
+        throw new Error("GraphQL mutation failed or returned null.");
   
       // ➕ Send RSVP event to EventBridge
       await ebClient.send(new PutEventsCommand({
@@ -99,11 +102,11 @@ export default function RSVPForm() {
         guestLastName: '',
         foodRestrictions: '',
       });
-    } catch (error) {
+    } } catch (error) {
       console.error("Error submitting RSVP:", error);
       toast({
         title: "Submission Failed",
-        description: "Something went wrong. Please try again.",
+        description: error?.message || "Something went wrong. Please try again.",
         duration: 5000,
         variant: "destructive",
       });
