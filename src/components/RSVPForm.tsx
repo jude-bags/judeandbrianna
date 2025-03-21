@@ -93,8 +93,33 @@ export default function RSVPForm() {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm p-8 md:p-12 w-full max-w-2xl mx-auto">
-      {/* ✅ Leave all your styled JSX input fields here as-is */}
-      {/* ✅ Nothing else needs to change — just the logic layer was updated */}
+     <div className="mb-12">
+  <div className="grid grid-cols-2 gap-8">
+    <div className="flex flex-col">
+      <span className="text-wedding-gray-600 mb-2 text-sm">First Name</span>
+      <input
+        type="text"
+        name="firstName"
+        required
+        value={formData.firstName}
+        onChange={handleChange}
+        className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+      />
+    </div>
+    <div className="flex flex-col">
+      <span className="text-wedding-gray-600 mb-2 text-sm">Last Name</span>
+      <input
+        type="text"
+        name="lastName"
+        required
+        value={formData.lastName}
+        onChange={handleChange}
+        className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+      />
+    </div>
+  </div>
+</div>
+
     </form>
   );
 }
