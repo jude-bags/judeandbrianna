@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import clsx from 'clsx';
 
 interface RSVP {
   id: string;
@@ -36,6 +37,8 @@ const columnHelper = createColumnHelper<RSVP>();
 export default function AdminRSVPs() {
   const [rsvps, setRsvps] = useState<RSVP[]>([]);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [attendingFilter, setAttendingFilter] = useState('');
+  const [guestFilter, setGuestFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
 
   useEffect(() => {
@@ -60,15 +63,34 @@ export default function AdminRSVPs() {
     );
   };
 
+  const filteredData = useMemo(() => {
+    return rsvps.filter(rsvp => {
+      const matchesGlobal = `${rsvp.firstName} ${rsvp.lastName} ${rsvp.email}`
+        .toLowerCase()
+        .includes(globalFilter.toLowerCase());
+      const matchesAttending = attendingFilter ? rsvp.attending === attendingFilter : true;
+      const matchesGuest = guestFilter ? rsvp.bringingGuest === guestFilter : true;
+      return matchesGlobal && matchesAttending && matchesGuest;
+    });
+  }, [rsvps, globalFilter, attendingFilter, guestFilter]);
+
+  const clearFilters = () => {
+    setGlobalFilter('');
+    setAttendingFilter('');
+    setGuestFilter('');
+  };
+
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
     columnHelper.accessor(row => `${row.firstName} ${row.lastName}`, {
       id: 'name',
       header: 'Name',
       cell: info => info.getValue(),
+      sortingFn: 'alphanumeric',
     }),
     columnHelper.accessor('email', {
       header: 'Email',
       cell: info => info.getValue(),
+      sortingFn: 'alphanumeric',
     }),
     columnHelper.accessor('attending', {
       header: 'Attending',
@@ -76,11 +98,19 @@ export default function AdminRSVPs() {
         <select
           defaultValue={info.getValue() as string}
           onBlur={e => handleUpdate(info.row.original.id, { attending: e.target.value })}
+          className={clsx(
+            'px-2 py-1 rounded',
+            {
+              'bg-green-100 text-green-800': info.getValue() === 'yes',
+              'bg-red-100 text-red-800': info.getValue() === 'no',
+            }
+          )}
         >
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>
       ),
+      sortingFn: 'alphanumeric',
     }),
     columnHelper.accessor('bringingGuest', {
       header: 'Bringing Guest',
@@ -88,16 +118,25 @@ export default function AdminRSVPs() {
         <select
           defaultValue={info.getValue() as string}
           onBlur={e => handleUpdate(info.row.original.id, { bringingGuest: e.target.value })}
+          className={clsx(
+            'px-2 py-1 rounded',
+            {
+              'bg-green-100 text-green-800': info.getValue() === 'yes',
+              'bg-gray-200 text-gray-800': info.getValue() === 'no',
+            }
+          )}
         >
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>
       ),
+      sortingFn: 'alphanumeric',
     }),
     columnHelper.accessor(row => `${row.guestFirstName || ''} ${row.guestLastName || ''}`.trim(), {
       id: 'guestName',
       header: 'Guest Name',
       cell: info => info.getValue(),
+      sortingFn: 'alphanumeric',
     }),
     columnHelper.accessor('foodRestrictions', {
       header: 'Food',
@@ -115,13 +154,15 @@ export default function AdminRSVPs() {
   ], []);
 
   const table = useReactTable({
-    data: rsvps,
+    data: filteredData,
     columns,
     state: { globalFilter, sorting },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    manualSorting: false,
+    enableSorting: true,
   });
 
   return (
@@ -133,12 +174,38 @@ export default function AdminRSVPs() {
         </Button>
       </div>
 
-      <Input
-        value={globalFilter ?? ''}
-        onChange={e => setGlobalFilter(e.target.value)}
-        placeholder="Search RSVPs..."
-        className="max-w-sm mb-4"
-      />
+      <div className="flex gap-4 mb-4 items-center flex-wrap">
+        <Input
+          value={globalFilter ?? ''}
+          onChange={e => setGlobalFilter(e.target.value)}
+          placeholder="Search RSVPs..."
+          className="max-w-sm"
+        />
+        <select
+          value={attendingFilter}
+          onChange={e => setAttendingFilter(e.target.value)}
+          className="border px-4 py-2 rounded text-sm"
+        >
+          <option value="">All Attending</option>
+          <option value="yes">Attending</option>
+          <option value="no">Not Attending</option>
+        </select>
+        <select
+          value={guestFilter}
+          onChange={e => setGuestFilter(e.target.value)}
+          className="border px-4 py-2 rounded text-sm"
+        >
+          <option value="">All Guests</option>
+          <option value="yes">Bringing Guest</option>
+          <option value="no">No Guest</option>
+        </select>
+        <Button onClick={clearFilters} variant="outline" className="text-sm">
+          Clear Filters
+        </Button>
+        <span className="ml-auto text-sm font-medium">
+          Showing {filteredData.length} RSVP{filteredData.length !== 1 ? 's' : ''}
+        </span>
+      </div>
 
       <Table>
         <TableHeader>
