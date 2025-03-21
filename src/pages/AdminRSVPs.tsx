@@ -192,7 +192,7 @@ export default function AdminRSVPs() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">RSVP Dashboard</h2>
-          <Button onClick={exportCSV} className="gap-2">
+          <Button onClick={exportCSV} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
             <Download size={16} /> Export CSV
           </Button>
         </div>
@@ -220,7 +220,7 @@ export default function AdminRSVPs() {
             placeholder="Filter by food restriction..."
             className="max-w-xs bg-zinc-800 text-white"
           />
-          <Button onClick={clearFilters} variant="outline" className="text-sm border-zinc-600 text-white">
+          <Button onClick={clearFilters} className="bg-zinc-700 hover:bg-zinc-600 text-white text-sm">
             Clear Filters
           </Button>
           <span className="ml-auto text-sm font-medium">
@@ -259,7 +259,7 @@ export default function AdminRSVPs() {
         </Table>
 
         <div className="flex justify-between items-center mt-6">
-          <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} variant="outline">
+          <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="bg-zinc-700 hover:bg-zinc-600 text-white">
             <ChevronLeft className="mr-2 h-4 w-4" /> Prev
           </Button>
 
@@ -267,7 +267,7 @@ export default function AdminRSVPs() {
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
 
-          <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} variant="outline">
+          <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="bg-zinc-700 hover:bg-zinc-600 text-white">
             Next <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
