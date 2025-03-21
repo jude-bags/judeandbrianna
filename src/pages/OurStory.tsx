@@ -32,7 +32,7 @@ const OurStory = () => {
           delay: 0.2
         }} className="flex flex-col justify-start pt-8">
             <p className="text-base leading-relaxed mb-12 max-w-md">
-              Our journey began like any other day, two paths converging at the crossroads of life. In a city filled with countless faces, it was a seemingly ordinary moment that ignited our extraordinary love story.
+              Our journey began like any other day — we met at a volleyball social, where we were both selected for the same team. We shared a passion for staying active and, of course, for winning. On that court, something just clicked. It was a seemingly ordinary moment that sparked an extraordinary love story.
             </p>
             
             <div className="grid grid-cols-2 gap-6">
@@ -50,7 +50,7 @@ const OurStory = () => {
         
         <div className="max-w-2xl mx-auto text-center mb-20">
           <p className="text-base leading-relaxed mb-16 max-w-sm mx-auto">
-            Our love story wouldn't be complete without mentioning our two loyal Dalmatian dogs, Max and Blue. They've been with us through thick and thin, bringing joy and laughter to our lives with their antics and wagging tails.
+          She set high, and he spiked down, and together we dominated the game. At the end, we high-fived and, in that split second, looked into each other's eyes. That’s when we both thought, "This could really be something"
           </p>
           
           <motion.div initial={{
@@ -66,11 +66,14 @@ const OurStory = () => {
           </motion.div>
           
           <p className="text-base leading-relaxed mt-16 mb-8 max-w-xs mx-auto">
-            Together, we faced life's challenges head-on, learning from each obstacle and celebrating each triumph. Our love and bond only grew stronger with time.
+          Since then, we've faced challenges, celebrated wins, and learned from life's ups and downs. Through it all, we’ve grown stronger in love, learning to put God first and cherish each day together. Our journey has been filled with laughter, joy, and countless beautiful moments
           </p>
           
           <p className="text-base leading-relaxed mt-16 max-w-xs mx-auto">
-            Today, as we stand on the precipice of our new chapter, we are excited to unite the rest of our story together. Our love has deepened, our adventures have multiplied, and our hearts are forever entwined.
+          Now, we invite you to share in what might be our most beautiful moment yet. As we embark on this new chapter, we can’t wait to celebrate with family and friends.
+          See you in Houston, TX!
+
+
           </p>
         </div>
         

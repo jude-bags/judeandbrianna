@@ -67,21 +67,21 @@ const TravelAndStay = () => {
               <div>
                 <h3 className="font-serif text-lg mb-4">• BY AIR:</h3>
                 <p className="leading-relaxed">
-                  The nearest major airport is Kerry Airport (KIR), located approximately 100 miles from Dunhaven Castle. From there, you can easily arrange transportation to the venue.
+                The nearest major airport is George Bush Intercontinental (IAH), located approximately 27 miles from AG Outdoor Venue. From there, you can easily arrange transportation to the venue, whether by car rental, taxi, rideshare, or shuttle service.
                 </p>
               </div>
               
               <div>
                 <h3 className="font-serif text-lg mb-4">• BY CAR:</h3>
                 <p className="leading-relaxed">
-                  If you're traveling by car, you can use GPS coordinates or follow local road signs to reach Dunhaven Castle. Detailed driving directions will be provided closer to the wedding date.
+                  If you're traveling by car, you can simply use GPS coordinates or follow local road signs to AG Outdoor Venue.
                 </p>
               </div>
               
               <div>
                 <h3 className="font-serif text-lg mb-4">• PUBLIC TRANSPORT:</h3>
                 <p className="leading-relaxed">
-                  Irish Rail and local bus services provide convenient transportation options within Ireland. You can plan your journey using these services to reach the nearest station or bus stop to Dunhaven Castle.
+                  Unfortunately, public transport is not available at this time
                 </p>
               </div>
             </motion.div>
