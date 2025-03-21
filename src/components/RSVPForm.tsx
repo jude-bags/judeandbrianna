@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
+import { EventBridgeClient, PutEventsCommand } from "@aws-sdk/client-eventbridge";
+
 import { generateClient } from 'aws-amplify/api';
 import { createRSVP } from '@/graphql/mutations'; // adjust path if needed
 
@@ -16,6 +18,8 @@ type FormData = {
 };
 
 const client = generateClient();
+const ebClient = new EventBridgeClient({ region: "us-east-2" });
+
 
 export default function RSVPForm() {
   const { toast } = useToast();
@@ -54,7 +58,7 @@ export default function RSVPForm() {
     e.preventDefault();
 
     try {
-      const response = await client.graphql({
+      await client.graphql({
         query: createRSVP,
         variables: {
           input: {
@@ -63,13 +67,22 @@ export default function RSVPForm() {
           },
         },
       });
-      
-      console.log("GraphQL response:", response);
-      
-      const data = response.data?.createRSVP;
-      if (!data) {
-        throw new Error("RSVP not created. Response data was empty.");
-      }
+  
+      // ✅ Step 2: Emit RSVP event to EventBridge
+      await ebClient.send(new PutEventsCommand({
+        Entries: [
+          {
+            Source: 'wedding.site',
+            DetailType: 'RSVP_SUBMITTED',
+            Detail: JSON.stringify({
+              firstName: formData.firstName,
+              email: formData.email,
+              attending: formData.attending,
+            }),
+            EventBusName: 'default',
+          },
+        ],
+      }));
       
 
       toast({
