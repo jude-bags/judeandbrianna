@@ -16,7 +16,7 @@ const Registry = () => {
         duration: 0.5
       }} className="max-w-3xl mx-auto text-center mb-16">
           <p className="mb-8">
-            Your presence is the greatest gift, and your well-wishes mean the world to us. If you'd like to celebrate our new journey with a token of love, we've created three unique registry options to suit your preferences.
+            Your presence is the greatest gift, and your well-wishes mean the world to us. If you'd like to celebrate our new journey with a token of love, we've we kindly ask that you consider a monetary gift in lieu of a traditional registry.
           </p>
         </motion.div>
         
@@ -39,7 +39,7 @@ const Registry = () => {
             <Link to="#" className="btn">LEARN MORE</Link>
           </motion.div>
           
-          <motion.div initial={{
+          {/* <motion.div initial={{
           opacity: 0,
           y: 20
         }} animate={{
@@ -56,7 +56,7 @@ const Registry = () => {
             </p>
             <Link to="#" className="btn">LEARN MORE</Link>
           </motion.div>
-          
+           */}
           <motion.div initial={{
           opacity: 0,
           y: 20
