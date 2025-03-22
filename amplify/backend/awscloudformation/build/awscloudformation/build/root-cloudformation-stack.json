@@ -267,6 +267,17 @@
         }
       }
     },
+    "functionappsynctoeventbridge": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/function/appsynctoeventbridge-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-site-dev-60f34-deployment",
+          "s3Key": "amplify-builds/appsynctoeventbridge-336c354572706376664b-build.zip",
+          "env": "dev"
+        }
+      }
+    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",

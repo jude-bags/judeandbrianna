@@ -17,6 +17,12 @@
       },
       "auth": {
         "site9c03d7d3": {}
+      },
+      "function": {
+        "appsynctoeventbridge": {
+          "deploymentBucketName": "amplify-site-dev-60f34-deployment",
+          "s3Key": "amplify-builds/appsynctoeventbridge-336c354572706376664b-build.zip"
+        }
       }
     }
   }
