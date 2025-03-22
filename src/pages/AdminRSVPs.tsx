@@ -42,6 +42,7 @@ export default function AdminRSVPs() {
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +76,11 @@ export default function AdminRSVPs() {
       variables: { input: { id } },
     });
     setRsvps(prev => prev.filter(rsvp => rsvp.id !== id));
+    setSelectedRowIds(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(id);
+      return newSet;
+    });
   };
 
   const filteredData = useMemo(() => {
@@ -120,7 +126,52 @@ export default function AdminRSVPs() {
     window.URL.revokeObjectURL(url);
   };
 
+  const toggleRowSelection = (id: string) => {
+    setSelectedRowIds(prev => {
+      const newSet = new Set(prev);
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const toggleAllRows = (checked: boolean) => {
+    if (checked) {
+      const allIds = filteredData.map(r => r.id);
+      setSelectedRowIds(new Set(allIds));
+    } else {
+      setSelectedRowIds(new Set());
+    }
+  };
+
+  const selectedEmails = filteredData
+    .filter(rsvp => selectedRowIds.has(rsvp.id))
+    .map(rsvp => rsvp.email)
+    .join(', ');
+
+  const copyEmailsToClipboard = () => {
+    if (selectedEmails) {
+      navigator.clipboard.writeText(selectedEmails);
+    }
+  };
+
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
+    {
+      id: 'select',
+      header: () => (
+        <input
+          type="checkbox"
+          checked={selectedRowIds.size === filteredData.length && filteredData.length > 0}
+          onChange={e => toggleAllRows(e.target.checked)}
+        />
+      ),
+      cell: info => (
+        <input
+          type="checkbox"
+          checked={selectedRowIds.has(info.row.original.id)}
+          onChange={() => toggleRowSelection(info.row.original.id)}
+        />
+      ),
+    },
     {
       id: 'actions',
       header: '',
@@ -195,7 +246,7 @@ export default function AdminRSVPs() {
         />
       ),
     }),
-  ], [handleUpdate]);
+  ], [handleUpdate, selectedRowIds, filteredData]);
 
   const table = useReactTable({
     data: filteredData,
@@ -249,6 +300,13 @@ export default function AdminRSVPs() {
           />
           <Button onClick={clearFilters} className="bg-zinc-700 hover:bg-zinc-600 text-white text-sm">
             Clear Filters
+          </Button>
+          <Button
+            onClick={copyEmailsToClipboard}
+            disabled={selectedRowIds.size === 0}
+            className="bg-green-600 hover:bg-green-500 text-white text-sm"
+          >
+            Copy Emails ({selectedRowIds.size})
           </Button>
           <span className="ml-auto text-sm font-medium">
             Showing {filteredData.length} RSVP{filteredData.length !== 1 ? 's' : ''} | {attendeeCount} Attending, {guestCount} +1s

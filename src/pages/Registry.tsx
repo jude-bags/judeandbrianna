@@ -37,7 +37,7 @@ const Registry = () => {
               Help us build our dream home <br /> <br />
               Zelle: 385-900-6425. Jude Edwards.
             </p>
-            <Link to="#" className="btn">LEARN MORE</Link>
+            
           </motion.div>
           
           <motion.div initial={{
@@ -57,7 +57,7 @@ const Registry = () => {
             Apple Pay : 385-900-6425. Jude Edwards. <br />
              Zelle : 385-900-6425. Jude Edwards.
             </p>
-            <Link to="#" className="btn">LEARN MORE</Link>
+            
           </motion.div>
           
           <motion.div initial={{
@@ -75,7 +75,7 @@ const Registry = () => {
             <p className="mb-6">
               Contribute to our experiences and adventures as a married couple.
             </p>
-            <Link to="#" className="btn">LEARN MORE</Link>
+            
           </motion.div>
         </div>
       </div>
