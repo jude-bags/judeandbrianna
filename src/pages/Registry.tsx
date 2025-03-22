@@ -71,9 +71,10 @@ const Registry = () => {
           delay: 0.4
         }} className="flex flex-col items-center text-center">
             <img alt="Honeymoon Fund" className="w-full h-[250px] object-cover mb-6" src="/lovable-uploads/cd7987cf-9930-4a66-a1ce-61fd2c34fe8e.jpg" />
-            <h2 className="text-2xl font-serif mb-4">HONEYMOON FUND</h2>
+            <h2 className="text-2xl font-serif mb-4">CHARITY FUND</h2>
             <p className="mb-6">
-              Contribute to our experiences and adventures as a married couple.
+              Contribute to a charity to help little kids at the St Jude's Hospital. <br /> 
+              Cashapp : 385-900-6425/ $DJbaggie  Jude Edwards.
             </p>
             
           </motion.div>
