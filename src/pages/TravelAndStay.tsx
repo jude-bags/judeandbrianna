@@ -19,7 +19,7 @@ const TravelAndStay = () => {
           <div className="absolute inset-x-[5%] inset-y-0 m-8" style={{
           zIndex: 10
         }}>
-            <img src="https://images.squarespace-cdn.com/content/v1/67bc3eee49fd994193e92d94/1740390133804-05MONFMFRMNX239HNAJJ/alejandro-luengo-Fm_TvVmuHq4-unsplash+%281%29.jpg" alt="Travel background" className="w-full h-full object-cover filter grayscale" />
+            <img src="/lovable-uploads/AGvenue.png" alt="Travel background" className="w-full h-full object-cover filter grayscale" />
           </div>
           
           {/* Text overlay - positioned above everything but with reduced opacity */}
