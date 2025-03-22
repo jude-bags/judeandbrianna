@@ -136,7 +136,7 @@ const TravelAndStay = () => {
               
               {/* Right side - Image */}
               <div className="lg:w-1/2">
-                <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Dunhaven Manor Hotel" className="w-full h-[500px] object-cover filter grayscale" />
+                <img src="/lovable-uploads/AGvenue.png" alt="Dunhaven Manor Hotel" className="w-full h-[500px] object-cover filter grayscale" />
               </div>
             </div>
           </div>
