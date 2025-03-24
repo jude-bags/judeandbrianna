@@ -38,7 +38,6 @@ export const updateRSVP = /* GraphQL */ `
       guestFirstName
       guestLastName
       foodRestrictions
-      group
       timestamp
       createdAt
       updatedAt
