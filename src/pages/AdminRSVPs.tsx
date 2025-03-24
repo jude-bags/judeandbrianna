@@ -15,7 +15,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Download, ChevronLeft, ChevronRight, Trash2, Home } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Download, ChevronLeft, ChevronRight, Trash2, Home, Plus } from 'lucide-react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,6 +46,9 @@ export default function AdminRSVPs() {
   const [groupFilter, setGroupFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
+  const [groupModalOpen, setGroupModalOpen] = useState(false);
+  const [newGroupName, setNewGroupName] = useState('');
+  const [customGroups, setCustomGroups] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,12 +64,6 @@ export default function AdminRSVPs() {
   }, []);
 
   const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
-    if (changes.group === '__custom__') {
-      const newGroup = prompt('Enter custom group name:');
-      if (!newGroup) return;
-      changes.group = newGroup;
-    }
-
     await client.graphql({
       query: updateRSVP,
       variables: { input: { id, ...changes } },
@@ -106,12 +104,12 @@ export default function AdminRSVPs() {
   }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
 
   const groupOptions = useMemo(() => {
-    const uniqueGroups = new Set<string>();
+    const builtInGroups = new Set<string>();
     rsvps.forEach(r => {
-      if (r.group?.trim()) uniqueGroups.add(r.group.trim());
+      if (r.group?.trim()) builtInGroups.add(r.group.trim());
     });
-    return Array.from(uniqueGroups).sort();
-  }, [rsvps]);
+    return Array.from(new Set([...Array.from(builtInGroups), ...customGroups])).sort();
+  }, [rsvps, customGroups]);
 
   const clearFilters = () => {
     setGlobalFilter('');
@@ -171,6 +169,13 @@ export default function AdminRSVPs() {
   const copyEmailsToClipboard = () => {
     if (selectedEmails) {
       navigator.clipboard.writeText(selectedEmails);
+    }
+  };
+
+  const addGroup = () => {
+    if (newGroupName.trim() && !customGroups.includes(newGroupName.trim())) {
+      setCustomGroups(prev => [...prev, newGroupName.trim()]);
+      setNewGroupName('');
     }
   };
 
@@ -282,7 +287,6 @@ export default function AdminRSVPs() {
             {groupOptions.map(group => (
               <option key={group} value={group}>{group}</option>
             ))}
-            <option value="__custom__">+ Add Custom Group</option>
           </select>
         );
       },
