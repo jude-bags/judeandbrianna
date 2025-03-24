@@ -16,6 +16,7 @@ export const createRSVP = /* GraphQL */ `
       guestFirstName
       guestLastName
       foodRestrictions
+      group
       timestamp
       createdAt
       updatedAt
@@ -38,6 +39,7 @@ export const updateRSVP = /* GraphQL */ `
       guestFirstName
       guestLastName
       foodRestrictions
+      group
       timestamp
       createdAt
       updatedAt
@@ -60,6 +62,7 @@ export const deleteRSVP = /* GraphQL */ `
       guestFirstName
       guestLastName
       foodRestrictions
+      group
       timestamp
       createdAt
       updatedAt

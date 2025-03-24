@@ -8,6 +8,7 @@ type RSVP {
   guestFirstName: String
   guestLastName: String
   foodRestrictions: String
+  group: String
   timestamp: AWSDateTime
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -178,6 +179,7 @@ input ModelRSVPFilterInput {
   guestFirstName: ModelStringInput
   guestLastName: ModelStringInput
   foodRestrictions: ModelStringInput
+  group: ModelStringInput
   timestamp: ModelStringInput
   createdAt: ModelStringInput
   updatedAt: ModelStringInput
@@ -200,6 +202,7 @@ input ModelRSVPConditionInput {
   guestFirstName: ModelStringInput
   guestLastName: ModelStringInput
   foodRestrictions: ModelStringInput
+  group: ModelStringInput
   timestamp: ModelStringInput
   and: [ModelRSVPConditionInput]
   or: [ModelRSVPConditionInput]
@@ -218,6 +221,7 @@ input CreateRSVPInput {
   guestFirstName: String
   guestLastName: String
   foodRestrictions: String
+  group: String
   timestamp: AWSDateTime
 }
 
@@ -231,6 +235,7 @@ input UpdateRSVPInput {
   guestFirstName: String
   guestLastName: String
   foodRestrictions: String
+  group: String
   timestamp: AWSDateTime
 }
 
@@ -254,6 +259,7 @@ input ModelSubscriptionRSVPFilterInput {
   guestFirstName: ModelSubscriptionStringInput
   guestLastName: ModelSubscriptionStringInput
   foodRestrictions: ModelSubscriptionStringInput
+  group: ModelSubscriptionStringInput
   timestamp: ModelSubscriptionStringInput
   createdAt: ModelSubscriptionStringInput
   updatedAt: ModelSubscriptionStringInput
