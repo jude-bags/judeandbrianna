@@ -30,6 +30,7 @@ interface RSVP {
   guestLastName?: string;
   foodRestrictions: string;
   adminNote?: string;
+  group?: string;
 }
 
 const client = generateClient();
@@ -41,6 +42,7 @@ export default function AdminRSVPs() {
   const [attendingFilter, setAttendingFilter] = useState('');
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
+  const [groupFilter, setGroupFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
@@ -58,10 +60,17 @@ export default function AdminRSVPs() {
   }, []);
 
   const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
+    if (changes.group === '__custom__') {
+      const newGroup = prompt('Enter custom group name:');
+      if (!newGroup) return;
+      changes.group = newGroup;
+    }
+
     await client.graphql({
       query: updateRSVP,
       variables: { input: { id, ...changes } },
     });
+
     setRsvps(prev =>
       prev.map(rsvp => (rsvp.id === id ? { ...rsvp, ...changes } : rsvp))
     );
@@ -91,22 +100,32 @@ export default function AdminRSVPs() {
       const matchesAttending = attendingFilter ? rsvp.attending === attendingFilter : true;
       const matchesGuest = guestFilter ? rsvp.bringingGuest === guestFilter : true;
       const matchesFood = foodFilter ? rsvp.foodRestrictions?.toLowerCase().includes(foodFilter.toLowerCase()) : true;
-      return matchesGlobal && matchesAttending && matchesGuest && matchesFood;
+      const matchesGroup = groupFilter ? rsvp.group === groupFilter : true;
+      return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup;
     });
-  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter]);
+  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
+
+  const groupOptions = useMemo(() => {
+    const uniqueGroups = new Set<string>();
+    rsvps.forEach(r => {
+      if (r.group?.trim()) uniqueGroups.add(r.group.trim());
+    });
+    return Array.from(uniqueGroups).sort();
+  }, [rsvps]);
 
   const clearFilters = () => {
     setGlobalFilter('');
     setAttendingFilter('');
     setGuestFilter('');
     setFoodFilter('');
+    setGroupFilter('');
   };
 
   const guestCount = filteredData.filter(r => r.bringingGuest === 'yes').length;
   const attendeeCount = filteredData.filter(r => r.attending === 'yes').length;
 
   const exportCSV = () => {
-    const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Note'];
+    const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Note', 'Group'];
     const rows = filteredData.map(r => [
       `${r.firstName} ${r.lastName}`,
       r.email,
@@ -115,6 +134,7 @@ export default function AdminRSVPs() {
       `${r.guestFirstName || ''} ${r.guestLastName || ''}`.trim(),
       r.foodRestrictions,
       r.adminNote || '',
+      r.group || '',
     ]);
     const csv = [headers, ...rows].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -246,7 +266,28 @@ export default function AdminRSVPs() {
         />
       ),
     }),
-  ], [handleUpdate, selectedRowIds, filteredData]);
+    columnHelper.accessor('group', {
+      header: 'Group',
+      cell: info => {
+        const currentGroup = info.getValue() || '';
+        const rsvpId = info.row.original.id;
+
+        return (
+          <select
+            value={currentGroup}
+            onChange={e => handleUpdate(rsvpId, { group: e.target.value })}
+            className="bg-zinc-800 text-white px-2 py-1 rounded text-sm w-full"
+          >
+            <option value="">— Unassigned —</option>
+            {groupOptions.map(group => (
+              <option key={group} value={group}>{group}</option>
+            ))}
+            <option value="__custom__">+ Add Custom Group</option>
+          </select>
+        );
+      },
+    }),
+  ], [handleUpdate, selectedRowIds, filteredData, groupOptions]);
 
   const table = useReactTable({
     data: filteredData,
