@@ -22,10 +22,10 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Badge } from '@/components/ui/badge';
 
 interface RSVP {
   id: string;
@@ -39,7 +39,68 @@ interface RSVP {
   foodRestrictions: string;
   adminNote?: string;
   group?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
+
+// Sample data for development in case backend is not connected
+const SAMPLE_RSVPS: RSVP[] = [
+  {
+    id: '1',
+    firstName: 'John',
+    lastName: 'Smith',
+    email: 'john.smith@example.com',
+    attending: 'yes',
+    bringingGuest: 'yes',
+    guestFirstName: 'Jane',
+    guestLastName: 'Smith',
+    foodRestrictions: 'Vegetarian',
+    adminNote: 'Close family',
+    group: 'Family'
+  },
+  {
+    id: '2',
+    firstName: 'Alice',
+    lastName: 'Johnson',
+    email: 'alice.j@example.com',
+    attending: 'yes',
+    bringingGuest: 'no',
+    foodRestrictions: 'No nuts',
+    group: 'Friends'
+  },
+  {
+    id: '3',
+    firstName: 'Robert',
+    lastName: 'Williams',
+    email: 'rob.w@example.com',
+    attending: 'no',
+    bringingGuest: 'no',
+    foodRestrictions: '',
+    adminNote: 'Send thank you note'
+  },
+  {
+    id: '4',
+    firstName: 'Emily',
+    lastName: 'Davis',
+    email: 'emily.davis@example.com',
+    attending: 'yes',
+    bringingGuest: 'yes',
+    guestFirstName: 'Michael',
+    guestLastName: 'Davis',
+    foodRestrictions: 'Gluten-free',
+    group: 'Friends'
+  },
+  {
+    id: '5',
+    firstName: 'David',
+    lastName: 'Wilson',
+    email: 'david.w@example.com',
+    attending: 'yes',
+    bringingGuest: 'no',
+    foodRestrictions: '',
+    group: 'Colleagues'
+  }
+];
 
 const client = generateClient();
 const columnHelper = createColumnHelper<RSVP>();
@@ -59,31 +120,6 @@ export default function RSVPDashboard() {
   const [loading, setLoading] = useState(false);
   const [selectedCount, setSelectedCount] = useState(0);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchRSVPs = async () => {
-      setLoading(true);
-      try {
-        const result = await client.graphql({ query: listRSVPS });
-        if (result.data?.listRSVPS?.items) {
-          setRsvps(result.data.listRSVPS.items as RSVP[]);
-        } else {
-          console.error('No data returned from listRSVPS query');
-          toast.error('Could not load RSVPs');
-        }
-      } catch (error) {
-        console.error('Error fetching RSVPs:', error);
-        toast.error('Failed to load RSVPs');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRSVPs();
-  }, []);
-
-  useEffect(() => {
-    setSelectedCount(selectedRowIds.size);
-  }, [selectedRowIds]);
 
   const analytics = useMemo(() => {
     const attending = rsvps.filter(r => r.attending === 'yes').length;
@@ -109,6 +145,39 @@ export default function RSVPDashboard() {
       declinedPercentage
     };
   }, [rsvps]);
+
+  useEffect(() => {
+    setSelectedCount(selectedRowIds.size);
+  }, [selectedRowIds]);
+
+  useEffect(() => {
+    const fetchRSVPs = async () => {
+      setLoading(true);
+      try {
+        const result = await client.graphql({
+          query: listRSVPS
+        });
+
+        // Type checking to ensure result.data exists
+        if ('data' in result && result.data?.listRSVPS?.items) {
+          setRsvps(result.data.listRSVPS.items as RSVP[]);
+        } else {
+          console.error('No data returned from listRSVPS query');
+          // Fallback to sample data for development
+          setRsvps(SAMPLE_RSVPS);
+          toast.error('Could not load RSVPs from backend');
+        }
+      } catch (error) {
+        console.error('Error fetching RSVPs:', error);
+        // Fallback to sample data for development
+        setRsvps(SAMPLE_RSVPS);
+        toast.error('Failed to load RSVPs');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRSVPs();
+  }, []);
 
   const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
     try {
