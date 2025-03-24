@@ -288,8 +288,10 @@ export default function AdminRSVPs() {
             <option value="">Unassigned</option>
             <option value="Bride's Family">Bride's Family</option>
             <option value="Groom's Family">Groom's Family</option>
-            <option value="Friends">Friends</option>
-            <option value="Vendors">Vendors</option>
+            <option value="Friends">Groom's Friends</option>
+            <option value="Friends">Bride's Friends</option>
+            <option value="Friends">Groom's Colleagues</option>
+            <option value="Friends">Bride's Colleagues</option>
           </select>
         );
       },
