@@ -38,6 +38,7 @@ export const listRSVPS = /* GraphQL */ `
         guestFirstName
         guestLastName
         foodRestrictions
+        group
         timestamp
         createdAt
         updatedAt
