@@ -30,7 +30,6 @@ interface RSVP {
   guestLastName?: string;
   foodRestrictions: string;
   adminNote?: string;
-  group?: string;
 }
 
 const client = generateClient();
@@ -42,7 +41,6 @@ export default function AdminRSVPs() {
   const [attendingFilter, setAttendingFilter] = useState('');
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
-  const [groupFilter, setGroupFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
@@ -237,26 +235,6 @@ export default function AdminRSVPs() {
     columnHelper.accessor('foodRestrictions', {
       header: 'Food',
       cell: info => info.getValue(),
-    }),
-    
-    columnHelper.accessor('group', {
-      header: 'Group',
-      cell: (info) => {
-        const rsvp = info.row.original;
-        return (
-          <select
-            value={rsvp.group || ''}
-            onChange={(e) => handleUpdate(rsvp.id, { group: e.target.value })}
-            className="border px-2 py-1 rounded"
-          >
-            <option value="">Unassigned</option>
-            <option value="Bride's Family">Bride's Family</option>
-            <option value="Groom's Family">Groom's Family</option>
-            <option value="Friends">Friends</option>
-            <option value="Vendors">Vendors</option>
-          </select>
-        );
-      },
     }),
     columnHelper.accessor('adminNote', {
       header: 'Note',
