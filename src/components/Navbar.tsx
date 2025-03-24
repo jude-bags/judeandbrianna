@@ -96,9 +96,7 @@ export default function Navbar() {
               <Link to="/rsvp" className="block py-2 nav-link text-black" onClick={() => setMobileMenuOpen(false)}>
                 RSVP
               </Link>
-              <Link to="/admin/rsvps" className="block py-2 nav-link text-black" onClick={() => setMobileMenuOpen(false)}>
-                ADMIN
-              </Link>
+              
             </div>
           </div>
         )}
