@@ -49,11 +49,15 @@ export default function AdminRSVPs() {
 
   useEffect(() => {
     const fetchRSVPs = async () => {
-      const result = await client.graphql({ query: listRSVPS });
-      if (result.data?.listRSVPS?.items) {
-        setRsvps(result.data.listRSVPS.items as RSVP[]);
-      } else {
-        console.error('No data returned from listRSVPS query');
+      try {
+        const result = await client.graphql({ query: listRSVPS });
+        if ('data' in result && result.data?.listRSVPS?.items) {
+          setRsvps(result.data.listRSVPS.items as RSVP[]);
+        } else {
+          console.error('No data returned from listRSVPS query');
+        }
+      } catch (error) {
+        console.error('Error fetching RSVPs:', error);
       }
     };
     fetchRSVPs();
@@ -93,16 +97,26 @@ export default function AdminRSVPs() {
       const matchesAttending = attendingFilter ? rsvp.attending === attendingFilter : true;
       const matchesGuest = guestFilter ? rsvp.bringingGuest === guestFilter : true;
       const matchesFood = foodFilter ? rsvp.foodRestrictions?.toLowerCase().includes(foodFilter.toLowerCase()) : true;
-      return matchesGlobal && matchesAttending && matchesGuest && matchesFood;
+      const matchesGroup = groupFilter ? rsvp.group === groupFilter : true;
+      return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup;
     });
-  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter]);
+  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
 
   const clearFilters = () => {
     setGlobalFilter('');
     setAttendingFilter('');
     setGuestFilter('');
     setFoodFilter('');
+    setGroupFilter('');
   };
+
+  const groups = useMemo(() => {
+    const allGroups = new Set<string>();
+    rsvps.forEach(rsvp => {
+      if (rsvp.group) allGroups.add(rsvp.group);
+    });
+    return Array.from(allGroups);
+  }, [rsvps]);
 
   const guestCount = filteredData.filter(r => r.bringingGuest === 'yes').length;
   const attendeeCount = filteredData.filter(r => r.attending === 'yes').length;
@@ -367,6 +381,18 @@ export default function AdminRSVPs() {
               <option value="">All Guests</option>
               <option value="yes">Bringing Guest</option>
               <option value="no">No Guest</option>
+            </select>
+            <select
+              value={groupFilter}
+              onChange={e => setGroupFilter(e.target.value)}
+              className="bg-zinc-800/80 text-white px-4 py-2 rounded text-sm border border-zinc-700"
+            >
+              <option value="">All Groups</option>
+              <option value="Bride's Family">Bride's Family</option>
+              <option value="Groom's Family">Groom's Family</option>
+              <option value="Friends">Friends</option>
+              <option value="Vendors">Vendors</option>
+              <option value="">Unassigned</option>
             </select>
             <Input
               value={foodFilter}
