@@ -39,7 +39,7 @@ const Index = () => {
               }} className="flex flex-col items-center justify-center col-span-1 w-full">
                   <div className="relative w-full mb-16">
                     <AspectRatio ratio={3 / 4.2} className="w-full max-w-[860px] mx-auto">
-                      <img alt="Wedding couple" className="w-full h-full object-cover filter grayscale" src="/lovable-uploads/middle.png" />
+                      <img alt="Wedding couple" className="w-full h-full object-cover filter grayscale" src="/lovable-uploads/lll.jpg" />
                     </AspectRatio>
                   </div>
                   
