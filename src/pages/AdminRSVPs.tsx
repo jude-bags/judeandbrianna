@@ -15,8 +15,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Download, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { Download, ChevronLeft, ChevronRight, Trash2, Home } from 'lucide-react';
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
 interface RSVP {
   id: string;
@@ -41,6 +42,8 @@ export default function AdminRSVPs() {
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRSVPs = async () => {
@@ -73,6 +76,11 @@ export default function AdminRSVPs() {
       variables: { input: { id } },
     });
     setRsvps(prev => prev.filter(rsvp => rsvp.id !== id));
+    setSelectedRowIds(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(id);
+      return newSet;
+    });
   };
 
   const filteredData = useMemo(() => {
@@ -118,15 +126,60 @@ export default function AdminRSVPs() {
     window.URL.revokeObjectURL(url);
   };
 
+  const toggleRowSelection = (id: string) => {
+    setSelectedRowIds(prev => {
+      const newSet = new Set(prev);
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const toggleAllRows = (checked: boolean) => {
+    if (checked) {
+      const allIds = filteredData.map(r => r.id);
+      setSelectedRowIds(new Set(allIds));
+    } else {
+      setSelectedRowIds(new Set());
+    }
+  };
+
+  const selectedEmails = filteredData
+    .filter(rsvp => selectedRowIds.has(rsvp.id))
+    .map(rsvp => rsvp.email)
+    .join(', ');
+
+  const copyEmailsToClipboard = () => {
+    if (selectedEmails) {
+      navigator.clipboard.writeText(selectedEmails);
+    }
+  };
+
   const columns = useMemo<ColumnDef<RSVP, any>[]>(() => [
     {
-      id: 'delete',
+      id: 'select',
+      header: () => (
+        <input
+          type="checkbox"
+          checked={selectedRowIds.size === filteredData.length && filteredData.length > 0}
+          onChange={e => toggleAllRows(e.target.checked)}
+        />
+      ),
+      cell: info => (
+        <input
+          type="checkbox"
+          checked={selectedRowIds.has(info.row.original.id)}
+          onChange={() => toggleRowSelection(info.row.original.id)}
+        />
+      ),
+    },
+    {
+      id: 'actions',
       header: '',
       cell: info => (
-        <button onClick={() => handleDelete(info.row.original.id)} className="text-red-400 hover:text-red-300">
+        <button onClick={() => handleDelete(info.row.original.id)} className="text-red-500 hover:text-red-400">
           <Trash2 size={16} />
         </button>
-      )
+      ),
     },
     columnHelper.accessor(row => `${row.firstName} ${row.lastName}`, {
       id: 'name',
@@ -193,7 +246,7 @@ export default function AdminRSVPs() {
         />
       ),
     }),
-  ], []);
+  ], [handleUpdate, selectedRowIds, filteredData]);
 
   const table = useReactTable({
     data: filteredData,
@@ -212,9 +265,14 @@ export default function AdminRSVPs() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">RSVP Dashboard</h2>
-          <Button onClick={exportCSV} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
-            <Download size={16} /> Export CSV
-          </Button>
+          <div className="flex gap-3">
+            <Button onClick={() => navigate('/')} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
+              <Home size={16} /> Home
+            </Button>
+            <Button onClick={exportCSV} className="gap-2 bg-zinc-700 hover:bg-zinc-600 text-white">
+              <Download size={16} /> Export CSV
+            </Button>
+          </div>
         </div>
 
         <div className="flex gap-4 mb-4 items-center flex-wrap">
@@ -243,6 +301,13 @@ export default function AdminRSVPs() {
           <Button onClick={clearFilters} className="bg-zinc-700 hover:bg-zinc-600 text-white text-sm">
             Clear Filters
           </Button>
+          <Button
+            onClick={copyEmailsToClipboard}
+            disabled={selectedRowIds.size === 0}
+            className="bg-green-600 hover:bg-green-500 text-white text-sm"
+          >
+            Copy Emails ({selectedRowIds.size})
+          </Button>
           <span className="ml-auto text-sm font-medium">
             Showing {filteredData.length} RSVP{filteredData.length !== 1 ? 's' : ''} | {attendeeCount} Attending, {guestCount} +1s
           </span>
@@ -251,7 +316,7 @@ export default function AdminRSVPs() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
                 {headerGroup.headers.map(header => (
                   <TableHead
                     key={header.id}
