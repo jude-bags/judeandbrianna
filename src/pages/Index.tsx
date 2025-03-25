@@ -76,7 +76,7 @@ const Index = () => {
                 >
                   <AspectRatio ratio={3 / 4} className="w-full">
                     <img
-                      src="/lovable-uploads/IMG_9011.jpg"
+                      src="/lovable-uploads/IMG_0911.jpg"
                       alt="Wedding dress"
                       className="w-full h-full object-cover filter grayscale"
                     />
