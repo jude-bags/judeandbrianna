@@ -45,6 +45,7 @@ export default function AdminRSVPs() {
   const [guestFilter, setGuestFilter] = useState('');
   const [foodFilter, setFoodFilter] = useState('');
   const [groupFilter, setGroupFilter] = useState('');
+  const [hotelFilter, setHotelFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
@@ -100,7 +101,8 @@ export default function AdminRSVPs() {
       const matchesGuest = guestFilter ? rsvp.bringingGuest === guestFilter : true;
       const matchesFood = foodFilter ? rsvp.foodRestrictions?.toLowerCase().includes(foodFilter.toLowerCase()) : true;
       const matchesGroup = groupFilter ? rsvp.group === groupFilter : true;
-      return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup;
+      const matchesHotel = hotelFilter ? rsvp.needsHotelRoom === hotelFilter : true;
+      return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup && matchesHotel;
     });
   }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
 
@@ -124,8 +126,9 @@ export default function AdminRSVPs() {
   const attendeeCount = filteredData.filter(r => r.attending === 'yes').length;
 
   const exportCSV = () => {
+    const exportData = selectedRowIds.size > 0 ? filteredData.filter(r => selectedRowIds.has(r.id)) : filteredData;
     const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Needs Hotel Room', '# Rooms', 'Note'];
-    const rows = filteredData.map(r => [
+    const rows = exportData.map(r => [
       `${r.firstName} ${r.lastName}`,
       r.email,
       r.attending,
@@ -394,6 +397,18 @@ export default function AdminRSVPs() {
             <div className="text-2xl font-semibold">{guestCount}</div>
           </div>
           
+          
+          <div className="bg-gradient-to-br from-yellow-900/30 to-yellow-800/20 border border-yellow-800/30 rounded-lg p-4">
+            <div className="text-yellow-400 text-sm mb-1">Needs Hotel Room</div>
+            <div className="text-2xl font-semibold">{filteredData.filter(r => r.needsHotelRoom === 'yes').length}</div>
+          </div>
+
+          <div className="bg-gradient-to-br from-orange-900/30 to-orange-800/20 border border-orange-800/30 rounded-lg p-4">
+            <div className="text-orange-400 text-sm mb-1">Total Rooms Requested</div>
+            <div className="text-2xl font-semibold">{filteredData.reduce((sum, r) => sum + (parseInt(r.numberOfRooms) || 0), 0)}</div>
+          </div>
+
+
           <div className="bg-gradient-to-br from-pink-900/30 to-pink-800/20 border border-pink-800/30 rounded-lg p-4">
             <div className="text-pink-400 text-sm mb-1">Total Guests</div>
             <div className="text-2xl font-semibold">{attendeeCount + guestCount}</div>
@@ -408,6 +423,16 @@ export default function AdminRSVPs() {
               placeholder="Search RSVPs..."
               className="max-w-sm bg-zinc-800/80 border-zinc-700 text-white"
             />
+            <select 
+              value={hotelFilter} 
+              onChange={e => setHotelFilter(e.target.value)} 
+              className="bg-zinc-800/80 text-white px-4 py-2 rounded text-sm border border-zinc-700"
+            >
+              <option value="">All Hotel Status</option>
+              <option value="yes">Needs Hotel</option>
+              <option value="no">No Hotel</option>
+            </select>
+
             <select 
               value={attendingFilter} 
               onChange={e => setAttendingFilter(e.target.value)} 
