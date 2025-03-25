@@ -1,3 +1,11 @@
+
+import SeatingArrangement from "../SeatingArrangement";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { useEffect, useMemo, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listRSVPS } from '@/graphql/queries';
@@ -287,6 +295,12 @@ export default function AdminRSVPs() {
       cell: (info) => {
         const rsvp = info.row.original;
         return (
+  <Tabs defaultValue="dashboard" className="min-h-screen w-full bg-gradient-to-br from-zinc-900 to-black text-white px-6 py-10">
+    <TabsList className="mb-6">
+      <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+      <TabsTrigger value="seating">Seating Arrangement</TabsTrigger>
+    </TabsList>
+    <TabsContent value="dashboard">
           <select
             value={rsvp.group || ''}
             onChange={(e) => handleUpdate(rsvp.id, { group: e.target.value })}
@@ -300,6 +314,8 @@ export default function AdminRSVPs() {
             <option value="Friends">Groom's Colleagues</option>
             <option value="Friends">Bride's Colleagues</option>
           </select>
+          </TabsContent>
+          </Tabs>
         );
       },
     }),
