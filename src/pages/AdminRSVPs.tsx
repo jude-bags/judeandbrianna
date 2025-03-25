@@ -1,3 +1,10 @@
+import SeatingArrangement from "../SeatingArrangement";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { useEffect, useMemo, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listRSVPS } from '@/graphql/queries';
@@ -282,29 +289,32 @@ export default function AdminRSVPs() {
       },
     }),
     
-    columnHelper.accessor('group', {
-      header: 'Group',
-      cell: (info) => {
-        const rsvp = info.row.original;
-        return (
-          <select
-            value={rsvp.group || ''}
-            onChange={(e) => handleUpdate(rsvp.id, { group: e.target.value })}
-            className="bg-zinc-800/50 border-zinc-700 text-pink-300 px-2 py-1 rounded transition-colors focus:border-pink-500"
-          >
-            <option value="">Unassigned</option>
-            <option value="Bride's Family">Bride's Family</option>
-            <option value="Groom's Family">Groom's Family</option>
-            <option value="Friends">Groom's Friends</option>
-            <option value="Friends">Bride's Friends</option>
-            <option value="Friends">Groom's Colleagues</option>
-            <option value="Friends">Bride's Colleagues</option>
-          </select>
-        );
-      },
-    }),
     
-  columnHelper.accessor('needsHotelRoom', {
+    
+  
+columnHelper.accessor('group', {
+  header: 'Group',
+  cell: (info) => {
+    const rsvp = info.row.original;
+    return (
+      <select
+        value={rsvp.group || ''}
+        onChange={(e) => handleUpdate(rsvp.id, { group: e.target.value })}
+        className="bg-zinc-800/50 border-zinc-700 text-pink-300 px-2 py-1 rounded transition-colors focus:border-pink-500"
+      >
+        <option value="">Unassigned</option>
+        <option value="Bride's Family">Bride's Family</option>
+        <option value="Groom's Family">Groom's Family</option>
+        <option value="Bride's Friends">Bride's Friends</option>
+        <option value="Groom's Friends">Groom's Friends</option>
+        <option value="Bride's Colleagues">Bride's Colleagues</option>
+        <option value="Groom's Colleagues">Groom's Colleagues</option>
+      </select>
+    );
+  },
+}),
+
+columnHelper.accessor('needsHotelRoom', {
     header: 'Hotel Room',
     cell: info => {
       const value = info.getValue() || '';
