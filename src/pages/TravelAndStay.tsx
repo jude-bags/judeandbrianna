@@ -166,7 +166,7 @@ const TravelAndStay = () => {
                   <div>
                     <h3 className="font-serif text-xl mb-2 tracking-wide">Transportation to the Wedding</h3>
                     <p className="leading-relaxed text-gray-800">
-                      For your convenience, we will be providing shuttle service from the recommended hotels to the wedding venue on the day of the ceremony.
+                      I've had the best experience renting from Sixt Car Rental, but any other car rental company is also okay. Uber and Lyft are also options.
                     </p>
                   </div>
                 </div>
@@ -182,7 +182,7 @@ const TravelAndStay = () => {
                   <div>
                     <h3 className="font-serif text-xl mb-2 tracking-wide">Local Activities</h3>
                     <p className="leading-relaxed text-gray-800">
-                      County Kerry offers numerous attractions including hiking trails, historic sites, and scenic drives. We encourage you to explore the area during your stay!
+                      Coming Soon! Stay Tuned!!
                     </p>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ const TravelAndStay = () => {
                   <div>
                     <h3 className="font-serif text-xl mb-2 tracking-wide">Weather Considerations</h3>
                     <p className="leading-relaxed text-gray-800">
-                      Please note that Irish weather can be unpredictable. We recommend packing layers and rain gear, even during summer months.
+                      Please note that Houston weather can be hot and humid. We recommend packing lighter clothes and maybe an umbrella, even during summer months.
                     </p>
                   </div>
                 </div>
@@ -222,7 +222,7 @@ const TravelAndStay = () => {
             If you have any questions or need assistance with travel arrangements, please don't hesitate to contact us.
           </p>
           <Button className="bg-black text-white hover:bg-gray-800 text-xs uppercase tracking-wider h-12 px-8">
-            Contact Us at judeandbriannaedwards@gmail.com
+            Email: judeandbriannaedwards@gmail.com
           </Button>
         </motion.div>
       </div>
