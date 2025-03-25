@@ -31,6 +31,8 @@ interface RSVP {
   foodRestrictions: string;
   adminNote?: string;
   group?: string;
+  needsHotelRoom?: string;
+  numberOfRooms?: string;
 }
 
 const client = generateClient();
@@ -122,7 +124,7 @@ export default function AdminRSVPs() {
   const attendeeCount = filteredData.filter(r => r.attending === 'yes').length;
 
   const exportCSV = () => {
-    const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Note'];
+    const headers = ['Name', 'Email', 'Attending', 'Bringing Guest', 'Guest Name', 'Food Restrictions', 'Needs Hotel Room', '# Rooms', 'Note'];
     const rows = filteredData.map(r => [
       `${r.firstName} ${r.lastName}`,
       r.email,
@@ -130,6 +132,8 @@ export default function AdminRSVPs() {
       r.bringingGuest,
       `${r.guestFirstName || ''} ${r.guestLastName || ''}`.trim(),
       r.foodRestrictions,
+      r.needsHotelRoom || '',
+      r.numberOfRooms || '',
       r.adminNote || '',
     ]);
     const csv = [headers, ...rows].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
@@ -296,7 +300,45 @@ export default function AdminRSVPs() {
         );
       },
     }),
-    columnHelper.accessor('adminNote', {
+    
+  columnHelper.accessor('needsHotelRoom', {
+    header: 'Hotel Room',
+    cell: info => {
+      const value = info.getValue() || '';
+      const id = info.row.original.id;
+      return (
+        <select
+          value={value}
+          onChange={(e) => handleUpdate(id, { needsHotelRoom: e.target.value })}
+          className="bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
+        >
+          <option value="">Unspecified</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      );
+    },
+  }),
+
+  columnHelper.accessor('numberOfRooms', {
+    header: '# Rooms',
+    cell: info => {
+      const value = info.getValue() || '';
+      const id = info.row.original.id;
+      return (
+        <input
+          type="number"
+          min="0"
+          value={value}
+          onChange={(e) => handleUpdate(id, { numberOfRooms: e.target.value })}
+          className="w-16 bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
+          placeholder="0"
+        />
+      );
+    },
+  }),
+
+  columnHelper.accessor('adminNote', {
       header: 'Note',
       cell: info => (
         <Input
