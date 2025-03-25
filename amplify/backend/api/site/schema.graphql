@@ -16,5 +16,6 @@ type RSVP @model @auth(rules: [{ allow: public }]) {
   group: String
   needsHotelRoom: String      
   numberOfRooms: String 
+  assignedTable: Int 
   timestamp: AWSDateTime
 }
