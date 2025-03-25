@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,8 +12,9 @@ import FAQS from "./pages/FAQS";
 import RSVP from "./pages/RSVP";
 import AdminRSVPs from "./pages/AdminRSVPs";
 import NotFound from "./pages/NotFound";
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Index />} />
@@ -33,24 +34,26 @@ const App = () => (
             <Route path="/faqs" element={<FAQS />} />
             <Route path="/rsvp" element={<RSVP />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/admin/rsvps" 
-            element={
-              <Authenticator loginMechanisms={['email']}>
-                {({ signOut, user }) => (
-                  <div className="p-4">
-                    <div className="flex justify-between mb-4">
-                      <span className="text-sm text-gray-600">Signed in as {user?.username}</span>
-                      <button onClick={signOut} className="text-sm underline">
-                        Sign out
-                      </button>
+            <Route
+              path="/admin/rsvps"
+              element={
+                <Authenticator loginMechanisms={["email"]}>
+                  {({ signOut, user }) => (
+                    <div className="p-4">
+                      <div className="flex justify-between mb-4">
+                        <span className="text-sm text-gray-600">
+                          Signed in as {user?.username}
+                        </span>
+                        <button onClick={signOut} className="text-sm underline">
+                          Sign out
+                        </button>
+                      </div>
+                      <AdminRSVPs />
                     </div>
-                    <AdminRSVPs />
-                  </div>
-                )}
-              </Authenticator>
-            }
-          />
-            
+                  )}
+                </Authenticator>
+              }
+            />
           </Routes>
         </AnimatePresence>
       </BrowserRouter>
