@@ -9,7 +9,7 @@ const FAQS = () => {
         <div className="h-[60vh] relative bg-center bg-cover grayscale" style={{ backgroundImage: "url('/lovable-uploads/fe7ff843-51cc-4d36-886f-af301b5b3734.png')" }}>
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-6xl md:text-7xl font-serif text-wedding-white tracking-wide text-center">
+            <h1 className="text-6xl md:text-7xl font-serif text-wedding-black tracking-wide text-center">
               FREQUENTLY ASKED<br />QUESTIONS
             </h1>
           </div>

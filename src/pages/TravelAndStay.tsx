@@ -222,7 +222,7 @@ const TravelAndStay = () => {
             If you have any questions or need assistance with travel arrangements, please don't hesitate to contact us.
           </p>
           <Button className="bg-black text-white hover:bg-gray-800 text-xs uppercase tracking-wider h-12 px-8">
-            Contact Us
+            Contact Us at judeandbriannaedwards@gmail.com
           </Button>
         </motion.div>
       </div>
