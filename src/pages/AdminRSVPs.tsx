@@ -1,10 +1,3 @@
-import SeatingArrangement from "../SeatingArrangement";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
 import { useEffect, useMemo, useState } from 'react';
 import { generateClient } from 'aws-amplify/api';
 import { listRSVPS } from '@/graphql/queries';
@@ -74,36 +67,29 @@ export default function AdminRSVPs() {
   }, []);
 
   const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
-    try {
-      await client.graphql({
-        query: updateRSVP,
-        variables: { input: { id, ...changes } },
-      });
-      setRsvps(prev =>
-        prev.map(rsvp => (rsvp.id === id ? { ...rsvp, ...changes } : rsvp))
-      );
-    } catch (error) {
-      console.error("Error updating RSVP:", error);
-    }
+    await client.graphql({
+      query: updateRSVP,
+      variables: { input: { id, ...changes } },
+    });
+    setRsvps(prev =>
+      prev.map(rsvp => (rsvp.id === id ? { ...rsvp, ...changes } : rsvp))
+    );
   };
 
   const handleDelete = async (id: string) => {
     const confirmed = confirm("Are you sure you want to delete this RSVP?");
     if (!confirmed) return;
-    try {
-      await client.graphql({
-        query: deleteRSVP,
-        variables: { input: { id } },
-      });
-      setRsvps(prev => prev.filter(rsvp => rsvp.id !== id));
-      setSelectedRowIds(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(id);
-        return newSet;
-      });
-    } catch (error) {
-      console.error("Error deleting RSVP:", error);
-    }
+
+    await client.graphql({
+      query: deleteRSVP,
+      variables: { input: { id } },
+    });
+    setRsvps(prev => prev.filter(rsvp => rsvp.id !== id));
+    setSelectedRowIds(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(id);
+      return newSet;
+    });
   };
 
   const filteredData = useMemo(() => {
@@ -118,7 +104,7 @@ export default function AdminRSVPs() {
       const matchesHotel = hotelFilter ? rsvp.needsHotelRoom === hotelFilter : true;
       return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup && matchesHotel;
     });
-  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter, hotelFilter]);
+  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
 
   const clearFilters = () => {
     setGlobalFilter('');
@@ -126,7 +112,6 @@ export default function AdminRSVPs() {
     setGuestFilter('');
     setFoodFilter('');
     setGroupFilter('');
-    setHotelFilter('');
   };
 
   const groups = useMemo(() => {
@@ -216,8 +201,8 @@ export default function AdminRSVPs() {
       id: 'actions',
       header: '',
       cell: info => (
-        <button
-          onClick={() => handleDelete(info.row.original.id)}
+        <button 
+          onClick={() => handleDelete(info.row.original.id)} 
           className="text-red-400 hover:text-red-300 transition-colors duration-200 p-1 rounded-full hover:bg-red-500/10"
         >
           <Trash2 size={16} />
@@ -296,6 +281,7 @@ export default function AdminRSVPs() {
         );
       },
     }),
+    
     columnHelper.accessor('group', {
       header: 'Group',
       cell: (info) => {
@@ -309,50 +295,53 @@ export default function AdminRSVPs() {
             <option value="">Unassigned</option>
             <option value="Bride's Family">Bride's Family</option>
             <option value="Groom's Family">Groom's Family</option>
-            <option value="Bride's Friends">Bride's Friends</option>
-            <option value="Groom's Friends">Groom's Friends</option>
-            <option value="Bride's Colleagues">Bride's Colleagues</option>
-            <option value="Groom's Colleagues">Groom's Colleagues</option>
+            <option value="Friends">Groom's Friends</option>
+            <option value="Friends">Bride's Friends</option>
+            <option value="Friends">Groom's Colleagues</option>
+            <option value="Friends">Bride's Colleagues</option>
           </select>
         );
       },
     }),
-    columnHelper.accessor('needsHotelRoom', {
-      header: 'Hotel Room',
-      cell: info => {
-        const value = info.getValue() || '';
-        const id = info.row.original.id;
-        return (
-          <select
-            value={value}
-            onChange={(e) => handleUpdate(id, { needsHotelRoom: e.target.value })}
-            className="bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
-          >
-            <option value="">Unspecified</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        );
-      },
-    }),
-    columnHelper.accessor('numberOfRooms', {
-      header: '# Rooms',
-      cell: info => {
-        const value = info.getValue() || '';
-        const id = info.row.original.id;
-        return (
-          <input
-            type="number"
-            min="0"
-            value={value}
-            onChange={(e) => handleUpdate(id, { numberOfRooms: e.target.value })}
-            className="w-16 bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
-            placeholder="0"
-          />
-        );
-      },
-    }),
-    columnHelper.accessor('adminNote', {
+    
+  columnHelper.accessor('needsHotelRoom', {
+    header: 'Hotel Room',
+    cell: info => {
+      const value = info.getValue() || '';
+      const id = info.row.original.id;
+      return (
+        <select
+          value={value}
+          onChange={(e) => handleUpdate(id, { needsHotelRoom: e.target.value })}
+          className="bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
+        >
+          <option value="">Unspecified</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      );
+    },
+  }),
+
+  columnHelper.accessor('numberOfRooms', {
+    header: '# Rooms',
+    cell: info => {
+      const value = info.getValue() || '';
+      const id = info.row.original.id;
+      return (
+        <input
+          type="number"
+          min="0"
+          value={value}
+          onChange={(e) => handleUpdate(id, { numberOfRooms: e.target.value })}
+          className="w-16 bg-zinc-800/50 text-white border-zinc-700 px-2 py-1 rounded"
+          placeholder="0"
+        />
+      );
+    },
+  }),
+
+  columnHelper.accessor('adminNote', {
       header: 'Note',
       cell: info => (
         <Input
