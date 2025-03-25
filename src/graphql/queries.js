@@ -14,6 +14,8 @@ export const getRSVP = /* GraphQL */ `
       guestLastName
       foodRestrictions
       group
+      needsHotelRoom
+      numberOfRooms
       timestamp
       createdAt
       updatedAt
@@ -39,6 +41,8 @@ export const listRSVPS = /* GraphQL */ `
         guestLastName
         foodRestrictions
         group
+        needsHotelRoom
+        numberOfRooms
         timestamp
         createdAt
         updatedAt

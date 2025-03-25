@@ -35,8 +35,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apisite"
       },
-      "lastPushTimeStamp": "2025-03-24T20:36:15.020Z",
-      "lastPushDirHash": "T3ap56Sv/FnED0siCBuMcI4mOt8="
+      "lastPushTimeStamp": "2025-03-25T18:09:33.715Z",
+      "lastPushDirHash": "h9Qx8zotByeVZ4tzL9Uxq/m2zXM="
     }
   },
   "auth": {
@@ -69,7 +69,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/auth/site9c03d7d3-cloudformation-template.json",
         "logicalId": "authsite9c03d7d3"
       },
-      "lastPushTimeStamp": "2025-03-24T20:36:12.811Z",
+      "lastPushTimeStamp": "2025-03-25T18:09:32.263Z",
       "output": {
         "UserPoolId": "us-east-2_TlFS0nLQb",
         "AppClientIDWeb": "207ftg8u91f5rvp38p1cbj23f0",
@@ -99,7 +99,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/function/appsynctoeventbridge-cloudformation-template.json",
         "logicalId": "functionappsynctoeventbridge"
       },
-      "lastPushTimeStamp": "2025-03-24T20:36:12.812Z",
+      "lastPushTimeStamp": "2025-03-25T18:09:32.265Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::772162467973:role/siteLambdaRole1ed3db34-dev",
         "Region": "us-east-2",

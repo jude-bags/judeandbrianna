@@ -14,6 +14,8 @@ export const onCreateRSVP = /* GraphQL */ `
       guestLastName
       foodRestrictions
       group
+      needsHotelRoom
+      numberOfRooms
       timestamp
       createdAt
       updatedAt
@@ -34,6 +36,8 @@ export const onUpdateRSVP = /* GraphQL */ `
       guestLastName
       foodRestrictions
       group
+      needsHotelRoom
+      numberOfRooms
       timestamp
       createdAt
       updatedAt
@@ -54,6 +58,8 @@ export const onDeleteRSVP = /* GraphQL */ `
       guestLastName
       foodRestrictions
       group
+      needsHotelRoom
+      numberOfRooms
       timestamp
       createdAt
       updatedAt
