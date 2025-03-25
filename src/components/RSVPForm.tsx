@@ -13,6 +13,8 @@ type FormData = {
   guestFirstName: string;
   guestLastName: string;
   foodRestrictions: string;
+  needsHotelRoom: string;
+  numberOfRooms: string;
 };
 
 const client = generateClient();
@@ -28,6 +30,8 @@ export default function RSVPForm() {
     guestFirstName: '',
     guestLastName: '',
     foodRestrictions: '',
+    needsHotelRoom: '',
+    numberOfRooms: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -44,7 +48,11 @@ export default function RSVPForm() {
         guestFirstName: '',
         guestLastName: '',
         foodRestrictions: '',
+        needsHotelRoom: '',
+        numberOfRooms: '',
       }));
+    } else if (name === 'needsHotelRoom' && value === 'no') {
+      setFormData(prev => ({ ...prev, [name]: value, numberOfRooms: '' }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -79,6 +87,8 @@ export default function RSVPForm() {
         guestFirstName: '',
         guestLastName: '',
         foodRestrictions: '',
+        needsHotelRoom: '',
+        numberOfRooms: '',
       });
     } catch (error) {
       console.error("Error submitting RSVP:", error);
@@ -109,7 +119,6 @@ export default function RSVPForm() {
               value={formData.firstName}
               onChange={handleChange}
               className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-              placeholder=""
             />
           </div>
           <div className="flex flex-col">
@@ -121,7 +130,6 @@ export default function RSVPForm() {
               value={formData.lastName}
               onChange={handleChange}
               className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-              placeholder=""
             />
           </div>
         </div>
@@ -140,11 +148,10 @@ export default function RSVPForm() {
           value={formData.email}
           onChange={handleChange}
           className="w-full border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-          placeholder=""
         />
       </div>
 
-      {/* Attending Question */}
+      {/* Attending */}
       <div className="mb-12">
         <div className="flex items-center mb-6">
           <span className="font-serif text-2xl text-wedding-black">Will you be attending?</span>
@@ -198,84 +205,135 @@ export default function RSVPForm() {
 
       {/* Guest Option */}
       {formData.attending === 'yes' && (
-        <div className="mb-12">
-          <div className="flex items-center mb-6">
-            <span className="font-serif text-2xl text-wedding-black">Will you be bringing a guest?</span>
-            <span className="text-sm text-wedding-gray-500 ml-2 italic">(required)</span>
-          </div>
-          <div className="flex gap-8 mb-10">
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                name="bringingGuest"
-                value="yes"
-                checked={formData.bringingGuest === 'yes'}
-                onChange={() => handleRadioChange('yes', 'bringingGuest')}
-                className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
-                required
-              />
-              <span className="text-base">Yes</span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                name="bringingGuest"
-                value="no"
-                checked={formData.bringingGuest === 'no'}
-                onChange={() => handleRadioChange('no', 'bringingGuest')}
-                className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
-              />
-              <span className="text-base">No</span>
-            </label>
-          </div>
-        </div>
-      )}
-
-      {/* Guest Name Fields */}
-      {formData.attending === 'yes' && formData.bringingGuest === 'yes' && (
-        <div className="mb-12">
-          <span className="font-serif text-2xl text-wedding-black mb-6 block">Guest Name</span>
-          <div className="grid grid-cols-2 gap-8">
-            <div className="flex flex-col">
-              <span className="text-wedding-gray-600 mb-2 text-sm">First Name</span>
-              <input
-                type="text"
-                name="guestFirstName"
-                value={formData.guestFirstName}
-                onChange={handleChange}
-                className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-              />
+        <>
+          <div className="mb-12">
+            <div className="flex items-center mb-6">
+              <span className="font-serif text-2xl text-wedding-black">Will you be bringing a guest?</span>
+              <span className="text-sm text-wedding-gray-500 ml-2 italic">(required)</span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-wedding-gray-600 mb-2 text-sm">Last Name</span>
-              <input
-                type="text"
-                name="guestLastName"
-                value={formData.guestLastName}
-                onChange={handleChange}
-                className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-              />
+            <div className="flex gap-8 mb-10">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="bringingGuest"
+                  value="yes"
+                  checked={formData.bringingGuest === 'yes'}
+                  onChange={() => handleRadioChange('yes', 'bringingGuest')}
+                  className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
+                  required
+                />
+                <span className="text-base">Yes</span>
+              </label>
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="bringingGuest"
+                  value="no"
+                  checked={formData.bringingGuest === 'no'}
+                  onChange={() => handleRadioChange('no', 'bringingGuest')}
+                  className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
+                />
+                <span className="text-base">No</span>
+              </label>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Food Restrictions */}
-      {formData.attending === 'yes' && (
-        <div className="mb-16">
-          <div className="flex items-center mb-6">
-            <span className="font-serif text-2xl text-wedding-black">Any food restrictions?</span>
-            <span className="text-sm text-wedding-gray-500 ml-2 italic">(required)</span>
+          {/* Guest Name Fields */}
+          {formData.bringingGuest === 'yes' && (
+            <div className="mb-12">
+              <span className="font-serif text-2xl text-wedding-black mb-6 block">Guest Name</span>
+              <div className="grid grid-cols-2 gap-8">
+                <div className="flex flex-col">
+                  <span className="text-wedding-gray-600 mb-2 text-sm">First Name</span>
+                  <input
+                    type="text"
+                    name="guestFirstName"
+                    value={formData.guestFirstName}
+                    onChange={handleChange}
+                    className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-wedding-gray-600 mb-2 text-sm">Last Name</span>
+                  <input
+                    type="text"
+                    name="guestLastName"
+                    value={formData.guestLastName}
+                    onChange={handleChange}
+                    className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Hotel Room Request */}
+          <div className="mb-12">
+            <div className="flex items-center mb-6">
+              <span className="font-serif text-2xl text-wedding-black">Do you need a hotel room?</span>
+              <span className="text-sm text-wedding-gray-500 ml-2 italic">(optional)</span>
+            </div>
+            <div className="flex gap-8 mb-10">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="needsHotelRoom"
+                  value="yes"
+                  checked={formData.needsHotelRoom === 'yes'}
+                  onChange={() => handleRadioChange('yes', 'needsHotelRoom')}
+                  className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
+                />
+                <span className="text-base">Yes</span>
+              </label>
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="needsHotelRoom"
+                  value="no"
+                  checked={formData.needsHotelRoom === 'no'}
+                  onChange={() => handleRadioChange('no', 'needsHotelRoom')}
+                  className="appearance-none w-5 h-5 border border-wedding-gray-400 rounded-full checked:bg-wedding-black checked:border-wedding-black relative"
+                />
+                <span className="text-base">No</span>
+              </label>
+            </div>
           </div>
-          <input
-            type="text"
-            name="foodRestrictions"
-            required={formData.attending === 'yes'}
-            value={formData.foodRestrictions}
-            onChange={handleChange}
-            className="w-full border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
-          />
-        </div>
+
+          {/* Number of Rooms */}
+          {formData.needsHotelRoom === 'yes' && (
+            <div className="mb-12">
+              <div className="flex flex-col">
+                <span className="font-serif text-2xl text-wedding-black mb-2">How many rooms do you need?</span>
+                <input
+                  type="number"
+                  name="numberOfRooms"
+                  min="1"
+                  required
+                  value={formData.numberOfRooms}
+                  onChange={handleChange}
+                  className="border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+                  placeholder="e.g., 1"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Food Restrictions */}
+          <div className="mb-16">
+            <div className="flex items-center mb-6">
+              <span className="font-serif text-2xl text-wedding-black">Any food restrictions?</span>
+              <span className="text-sm text-wedding-gray-500 ml-2 italic">(required)</span>
+            </div>
+            <input
+              type="text"
+              name="foodRestrictions"
+              required
+              value={formData.foodRestrictions}
+              onChange={handleChange}
+              className="w-full border-b border-wedding-gray-400 pb-1 bg-transparent focus:outline-none focus:border-wedding-black transition-colors"
+            />
+          </div>
+        </>
       )}
 
       {/* Submit Button */}
