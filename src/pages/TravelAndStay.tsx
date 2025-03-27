@@ -96,8 +96,12 @@ const TravelAndStay = () => {
             
             {/* Introduction paragraph */}
             <p className="text-center max-w-[1000px] mx-auto mb-20 text-base leading-relaxed">
-              To ensure your comfort during your stay, we've curated a list of accommodations in the vicinity of 
-              Dunhaven Castle. Whether you're looking for a cozy inn or a luxury hotel, there's something for everyone.
+              As our wedding day approaches, we are excited to celebrate this special occasion with you. 
+              To ensure we can finalize all the details, we kindly ask that you please RSVP by May 25, 2025 and let us know if you will need a hotel room for the night of the event.
+              our response will help us determine how many rooms we need to reserve, ensuring a comfortable stay for all of our guests.
+              Thank you so much, and we can’t wait to celebrate with you!
+              {/* To ensure your comfort during your stay, we've curated a list of accommodations in the vicinity of 
+              Dunhaven Castle. Whether you're looking for a cozy inn or a luxury hotel, there's something for everyone. */}
             </p>
             
             {/* Hotel Listing 1 - Castleview Hotel & Spa - Reduced to 70% width and centered */}
@@ -111,11 +115,12 @@ const TravelAndStay = () => {
               <div className="lg:w-1/2 pt-10 lg:pt-20">
                 <h3 className="font-serif text-2xl mb-6 tracking-wide">CASTLEVIEW HOTEL & SPA</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
-                  Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
-                  dining restaurant, and stunning views of the Irish countryside.
+                  We are Actively putting together hotel options for your convenience, Stay Tuned!
+                  {/* Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
+                  dining restaurant, and stunning views of the Irish countryside. */}
                 </p>
                 <Button variant="outline" className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white">
-                  Visit Website
+                  {/* Visit Website */}
                 </Button>
               </div>
             </div>
@@ -124,13 +129,14 @@ const TravelAndStay = () => {
             <div className="flex flex-col-reverse lg:flex-row w-full lg:w-[70%] mx-auto">
               {/* Left side - Text */}
               <div className="lg:w-1/2 pt-10 lg:pt-20 pr-0 lg:pr-20">
-                <h3 className="font-serif text-2xl mb-6 tracking-wide">DUNHAVEN MANOR HOTEL</h3>
+                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
-                  Nestled in the heart of County Kerry, Dunhaven Manor Hotel offers luxury 
-                  accommodations with breathtaking views of the surrounding countryside.
+                  We are Actively putting together hotel options for your convenience, Stay Tuned!
+                  {/* Nestled in the heart of County Kerry, Dunhaven Manor Hotel offers luxury 
+                  accommodations with breathtaking views of the surrounding countryside. */}
                 </p>
                 <Button variant="outline" className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white">
-                  Visit Website
+                  {/* Visit Website */}
                 </Button>
               </div>
               
