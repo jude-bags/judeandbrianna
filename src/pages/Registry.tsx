@@ -21,6 +21,7 @@ const Registry = () => {
 
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 max-w-5xl">
+            {/* Gift for the Couple */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -33,13 +34,23 @@ const Registry = () => {
                 src="/lovable-uploads/4a1b2244-0f3c-4993-b643-aac101abba5b.jpg"
               />
               <h2 className="text-2xl font-serif mb-4">GIFT FOR THE COUPLE</h2>
-              <p className="mb-6">
-                Help us build our future together. <br /> <br />
-                Zelle: 385-900-6425.<br />
-                Zelle: 315-771-4087.
+              <div className="text-3xl mb-2">🏦 Zelle</div>
+              <p className="mb-4">
+                Help us build our future together. <br />
+                Zelle: 385-900-6425<br />
+                Zelle: 315-771-4087
               </p>
+              <a
+                href="https://www.zellepay.com/" // Replace with actual if available
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition"
+              >
+                Send via Zelle
+              </a>
             </motion.div>
 
+            {/* Honeymoon Fund */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,11 +63,20 @@ const Registry = () => {
                 className="w-full h-[250px] object-cover mb-6"
               />
               <h2 className="text-2xl font-serif mb-4">HONEYMOON FUND</h2>
-              <p className="mb-6">
-                Contribute to our experiences and adventures as a married couple. <br /> <br />
-                Apple Pay : 385-900-6425. <br />
-                Apple Pay : 315-771-4087.
+              <div className="text-3xl mb-2">🍎 Apple Pay</div>
+              <p className="mb-4">
+                Contribute to our experiences and adventures as a married couple. <br />
+                Apple Pay: 385-900-6425<br />
+                Apple Pay: 315-771-4087
               </p>
+              <a
+                href="https://www.apple.com/apple-pay/" // Replace with actual if available
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition"
+              >
+                Send via Apple Pay
+              </a>
             </motion.div>
           </div>
         </div>
