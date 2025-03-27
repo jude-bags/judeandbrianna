@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { ClipboardCopy } from 'lucide-react';
 
 const Registry = () => {
   const handleCopy = (text: string) => {
@@ -39,25 +39,21 @@ const Registry = () => {
                 src="/lovable-uploads/4a1b2244-0f3c-4993-b643-aac101abba5b.jpg"
               />
               <h2 className="text-2xl font-serif mb-4">GIFT FOR THE COUPLE</h2>
-              <img
-                src="/logos/zelle.png"
-                alt="Zelle Logo"
-                className="h-10 mb-2"
-              />
+              <div className="text-3xl mb-2">🏦 Zelle</div>
               <p className="mb-4">
                 Help us build our future together.
                 <br />
                 <span className="inline-flex items-center gap-2">
                   Zelle: 385-900-6425
-                  <button onClick={() => handleCopy('385-900-6425')} className="text-sm text-blue-600 underline">
-                    Copy
+                  <button onClick={() => handleCopy('385-900-6425')} className="hover:text-purple-600">
+                    <ClipboardCopy size={16} />
                   </button>
                 </span>
                 <br />
                 <span className="inline-flex items-center gap-2">
                   Zelle: 315-771-4087
-                  <button onClick={() => handleCopy('315-771-4087')} className="text-sm text-blue-600 underline">
-                    Copy
+                  <button onClick={() => handleCopy('315-771-4087')} className="hover:text-purple-600">
+                    <ClipboardCopy size={16} />
                   </button>
                 </span>
               </p>
@@ -84,25 +80,21 @@ const Registry = () => {
                 className="w-full h-[250px] object-cover mb-6"
               />
               <h2 className="text-2xl font-serif mb-4">HONEYMOON FUND</h2>
-              <img
-                src="/logos/apple-pay.png"
-                alt="Apple Pay Logo"
-                className="h-10 mb-2"
-              />
+              <div className="text-3xl mb-2">🍎 Apple Pay</div>
               <p className="mb-4">
                 Contribute to our experiences and adventures as a married couple.
                 <br />
                 <span className="inline-flex items-center gap-2">
                   Apple Pay: 385-900-6425
-                  <button onClick={() => handleCopy('385-900-6425')} className="text-sm text-blue-600 underline">
-                    Copy
+                  <button onClick={() => handleCopy('385-900-6425')} className="hover:text-purple-600">
+                    <ClipboardCopy size={16} />
                   </button>
                 </span>
                 <br />
                 <span className="inline-flex items-center gap-2">
                   Apple Pay: 315-771-4087
-                  <button onClick={() => handleCopy('315-771-4087')} className="text-sm text-blue-600 underline">
-                    Copy
+                  <button onClick={() => handleCopy('315-771-4087')} className="hover:text-purple-600">
+                    <ClipboardCopy size={16} />
                   </button>
                 </span>
               </p>
