@@ -113,7 +113,7 @@ const TravelAndStay = () => {
               
               {/* Right side - Text */}
               <div className="lg:w-1/2 pt-10 lg:pt-20">
-                <h3 className="font-serif text-2xl mb-6 tracking-wide">CASTLEVIEW HOTEL & SPA</h3>
+                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
                   We are Actively putting together hotel options for your convenience, Stay Tuned!
                   {/* Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
