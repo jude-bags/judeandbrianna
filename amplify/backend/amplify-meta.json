@@ -16,13 +16,21 @@
     "judeandbrianna": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "judeandbrianna2a06d062",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authjudeandbrianna2a06d062"
             }
           },
           "additionalAuthenticationProviders": []
@@ -35,7 +43,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apijudeandbrianna"
       },
-      "lastPushTimeStamp": "2025-03-30T20:51:02.777Z",
+      "lastPushTimeStamp": "2025-03-30T21:02:36.071Z",
       "lastPushDirHash": "ywGeLW8/uMWA6ckWZyyQtV91gUo="
     }
   },
