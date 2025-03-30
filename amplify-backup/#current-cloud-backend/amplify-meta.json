@@ -1,0 +1,113 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-site-dev-60f34-authRole",
+      "UnauthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-60f34-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::772162467973:role/amplify-site-dev-60f34-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-site-dev-60f34-deployment",
+      "UnauthRoleName": "amplify-site-dev-60f34-unauthRole",
+      "StackName": "amplify-site-dev-60f34",
+      "StackId": "arn:aws:cloudformation:us-east-2:772162467973:stack/amplify-site-dev-60f34/a11c1df0-05fb-11f0-8cff-0afd5ea62f09",
+      "AmplifyAppId": "d22mu2dnxjqtdx"
+    }
+  },
+  "api": {
+    "site": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "gupqn3gbevdh5m7hwwgqwglkx4",
+        "GraphQLAPIEndpointOutput": "https://di5xzvontfh75lddaggsojoy3y.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-y4zlecblcve3vgx5x6d5nnp3fu"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apisite"
+      },
+      "lastPushTimeStamp": "2025-03-25T18:09:33.715Z",
+      "lastPushDirHash": "h9Qx8zotByeVZ4tzL9Uxq/m2zXM="
+    }
+  },
+  "auth": {
+    "site9c03d7d3": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/auth/site9c03d7d3-cloudformation-template.json",
+        "logicalId": "authsite9c03d7d3"
+      },
+      "lastPushTimeStamp": "2025-03-25T18:09:32.263Z",
+      "output": {
+        "UserPoolId": "us-east-2_TlFS0nLQb",
+        "AppClientIDWeb": "207ftg8u91f5rvp38p1cbj23f0",
+        "AppClientID": "7vpe70q0nvv6en67l0occsfho2",
+        "IdentityPoolId": "us-east-2:99d2aedb-d7c5-4484-9d16-3c800e6852bc",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:772162467973:userpool/us-east-2_TlFS0nLQb",
+        "IdentityPoolName": "site9c03d7d3_identitypool_9c03d7d3__dev",
+        "UserPoolName": "site9c03d7d3_userpool_9c03d7d3"
+      },
+      "lastPushDirHash": "1MoQvWFwno59HTxs99/23VIP0cs="
+    }
+  },
+  "function": {
+    "appsynctoeventbridge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2025-03-21T22:17:38.876Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2025-03-21T22:17:38.911Z",
+      "distZipFilename": "appsynctoeventbridge-336c354572706376664b-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-site-dev-60f34-deployment",
+        "s3Key": "amplify-builds/appsynctoeventbridge-336c354572706376664b-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-site-dev-60f34-deployment/amplify-cfn-templates/function/appsynctoeventbridge-cloudformation-template.json",
+        "logicalId": "functionappsynctoeventbridge"
+      },
+      "lastPushTimeStamp": "2025-03-25T18:09:32.265Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::772162467973:role/siteLambdaRole1ed3db34-dev",
+        "Region": "us-east-2",
+        "Arn": "arn:aws:lambda:us-east-2:772162467973:function:appsynctoeventbridge-dev",
+        "Name": "appsynctoeventbridge-dev",
+        "LambdaExecutionRole": "siteLambdaRole1ed3db34-dev"
+      },
+      "lastPushDirHash": "kwha5U4PBBc0jt8xMDuxdESZhYE="
+    }
+  }
+}
