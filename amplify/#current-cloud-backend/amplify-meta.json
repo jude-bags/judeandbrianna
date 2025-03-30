@@ -16,16 +16,33 @@
     "judeandbrianna": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "judeandbrianna2a06d062"
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authjudeandbrianna2a06d062"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2025-04-06T21:03:49.100Z",
+                "description": "judeandbrianna"
+              }
+            }
+          ]
         },
         "GraphQLAPIIdOutput": "onncatljfjecxepnc5f5hkqv3m",
         "GraphQLAPIEndpointOutput": "https://ne2lgtpykjegnfswjzmx7dixk4.appsync-api.us-east-2.amazonaws.com/graphql",
@@ -35,8 +52,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apijudeandbrianna"
       },
-      "lastPushTimeStamp": "2025-03-30T20:51:02.777Z",
-      "lastPushDirHash": "ywGeLW8/uMWA6ckWZyyQtV91gUo="
+      "lastPushTimeStamp": "2025-03-30T21:06:33.405Z",
+      "lastPushDirHash": "a1+L3lZHmvkMGGNU+T68Dw4UavU="
     }
   },
   "auth": {
@@ -69,7 +86,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/auth/judeandbrianna2a06d062-cloudformation-template.json",
         "logicalId": "authjudeandbrianna2a06d062"
       },
-      "lastPushTimeStamp": "2025-03-30T20:51:01.061Z",
+      "lastPushTimeStamp": "2025-03-30T21:06:31.585Z",
       "output": {
         "UserPoolId": "us-east-2_FblHpSGvi",
         "AppClientIDWeb": "6d7mq4rl0n93onal59omdnr15c",

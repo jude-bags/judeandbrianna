@@ -205,8 +205,14 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "Parameters": {
           "AppSyncApiName": "judeandbrianna",
+          "AuthCognitoUserPoolId": {
+            "Fn::GetAtt": [
+              "authjudeandbrianna2a06d062",
+              "Outputs.UserPoolId"
+            ]
+          },
           "S3DeploymentBucket": "amplify-judeandbrianna-dev-0d1d9-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/33076b6b0157d617c76d16f06cceb88f872490e9",
+          "S3DeploymentRootKey": "amplify-appsync-files/e5c5628c04275e2f7c021a7f2048bb413af1d90b",
           "env": "dev"
         }
       }
