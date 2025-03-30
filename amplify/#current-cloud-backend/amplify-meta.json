@@ -11,5 +11,32 @@
       "StackId": "arn:aws:cloudformation:us-east-2:772162467973:stack/amplify-judeandbrianna-dev-0d1d9/e1d3b850-0da1-11f0-9cdd-06ab3c63455b",
       "AmplifyAppId": "d2xuwr2j6bx9o1"
     }
+  },
+  "api": {
+    "judeandbrianna": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "onncatljfjecxepnc5f5hkqv3m",
+        "GraphQLAPIEndpointOutput": "https://ne2lgtpykjegnfswjzmx7dixk4.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-rl5pmv73qrayzn27yfl4xr2e4u"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apijudeandbrianna"
+      },
+      "lastPushTimeStamp": "2025-03-30T20:20:54.555Z",
+      "lastPushDirHash": "IAhswoPgVPqeBz8fVpC4Lpaw4iY="
+    }
   }
 }

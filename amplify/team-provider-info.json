@@ -10,6 +10,11 @@
       "StackName": "amplify-judeandbrianna-dev-0d1d9",
       "StackId": "arn:aws:cloudformation:us-east-2:772162467973:stack/amplify-judeandbrianna-dev-0d1d9/e1d3b850-0da1-11f0-9cdd-06ab3c63455b",
       "AmplifyAppId": "d2xuwr2j6bx9o1"
+    },
+    "categories": {
+      "api": {
+        "judeandbrianna": {}
+      }
     }
   }
 }
