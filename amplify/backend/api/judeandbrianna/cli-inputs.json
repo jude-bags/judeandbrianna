@@ -8,6 +8,13 @@
       "cognitoUserPoolId": "authjudeandbrianna2a06d062"
     },
     "conflictResolution": {},
-    "additionalAuthTypes": []
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2025-04-06T21:03:49.100Z",
+        "keyDescription": "judeandbrianna"
+      }
+    ]
   }
 }
