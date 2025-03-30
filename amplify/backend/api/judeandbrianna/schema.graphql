@@ -288,6 +288,4 @@ type Subscription {
   onUpdateRSVP(filter: ModelSubscriptionRSVPFilterInput): RSVP @aws_subscribe(mutations: ["updateRSVP"])
   onDeleteRSVP(filter: ModelSubscriptionRSVPFilterInput): RSVP @aws_subscribe(mutations: ["deleteRSVP"])
 }
-type RSVP @model @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Admin"] }]) {
-  ...
-}
+

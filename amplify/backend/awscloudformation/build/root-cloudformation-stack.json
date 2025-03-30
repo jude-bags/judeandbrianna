@@ -206,7 +206,7 @@
         "Parameters": {
           "AppSyncApiName": "judeandbrianna",
           "S3DeploymentBucket": "amplify-judeandbrianna-dev-0d1d9-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/e2a58813375161bcabfa0b299ced9012964d083a",
+          "S3DeploymentRootKey": "amplify-appsync-files/33076b6b0157d617c76d16f06cceb88f872490e9",
           "env": "dev"
         }
       }
