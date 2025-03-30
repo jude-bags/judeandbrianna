@@ -35,7 +35,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apijudeandbrianna"
       },
-      "lastPushTimeStamp": "2025-03-30T20:23:37.864Z",
+      "lastPushTimeStamp": "2025-03-30T20:31:09.473Z",
       "lastPushDirHash": "IAhswoPgVPqeBz8fVpC4Lpaw4iY="
     }
   },
@@ -69,7 +69,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/auth/judeandbrianna2a06d062-cloudformation-template.json",
         "logicalId": "authjudeandbrianna2a06d062"
       },
-      "lastPushTimeStamp": "2025-03-30T20:23:38.403Z",
+      "lastPushTimeStamp": "2025-03-30T20:31:09.475Z",
       "output": {
         "UserPoolId": "us-east-2_FblHpSGvi",
         "AppClientIDWeb": "6d7mq4rl0n93onal59omdnr15c",
