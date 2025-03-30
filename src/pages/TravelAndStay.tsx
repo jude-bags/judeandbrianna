@@ -98,7 +98,7 @@ const TravelAndStay = () => {
             <p className="text-center max-w-[1000px] mx-auto mb-20 text-base leading-relaxed">
               As our wedding day approaches, we are excited to celebrate this special occasion with you. 
               To ensure we can finalize all the details, we kindly ask that you please RSVP by May 25, 2025 and let us know if you will need a hotel room for the night of the event.
-              our response will help us determine how many rooms we need to reserve, ensuring a comfortable stay for all of our guests.
+              Your response will help us determine how many rooms we need to reserve, ensuring a comfortable stay for all of our guests.
               Thank you so much, and we can’t wait to celebrate with you!
               {/* To ensure your comfort during your stay, we've curated a list of accommodations in the vicinity of 
               Dunhaven Castle. Whether you're looking for a cozy inn or a luxury hotel, there's something for everyone. */}
