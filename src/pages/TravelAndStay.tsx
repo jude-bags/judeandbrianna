@@ -108,12 +108,12 @@ const TravelAndStay = () => {
             <div className="flex flex-col lg:flex-row mb-32 w-full lg:w-[70%] mx-auto">
               {/* Left side - Image */}
               <div className="lg:w-1/2 pr-0 lg:pr-20">
-                <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Castleview Hotel & Spa" className="w-full h-[500px] object-cover filter grayscale" />
+                <img src="/lovable-uploads/hyatt.png" alt="Hyatt Hotel & Spa" className="w-full h-[500px] object-cover filter grayscale" />
               </div>
               
               {/* Right side - Text */}
               <div className="lg:w-1/2 pt-10 lg:pt-20">
-                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
+                <h3 className="font-serif text-2xl mb-6 tracking-wide">HYATT PLACE HOUSTON NW VINTAGE PARK</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
                 We wanted to share a convenient hotel option for your stay during our wedding weekend. This hotel is located just 13 minutes from the venue, offering easy access for all events.
                 Please note, the hotel is approximately 30 miles from Houston. Additionally, we will be providing a discount code later this week, so stay tuned for that!
@@ -137,24 +137,35 @@ const TravelAndStay = () => {
               </div>
             </div>
             
-            {/* Hotel Listing 2 - Dunhaven Manor Hotel - Reduced to 70% width and centered */}
             <div className="flex flex-col-reverse lg:flex-row w-full lg:w-[70%] mx-auto">
               {/* Left side - Text */}
               <div className="lg:w-1/2 pt-10 lg:pt-20 pr-0 lg:pr-20">
-                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
+                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hilton Houston Post Oak by the Galleria</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
-                  We are Actively putting together hotel options for your convenience, Stay Tuned!
-                  {/* Nestled in the heart of County Kerry, Dunhaven Manor Hotel offers luxury 
-                  accommodations with breathtaking views of the surrounding countryside. */}
+                As our wedding is scheduled for a Friday, we understand that many of you will be staying the weekend in Houston. While we do not have a discount code available at the moment, we wanted to share a wonderful hotel option for your stay!
                 </p>
-                <Button variant="outline" className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white">
-                  {/* Visit Website */}
+                <Button
+                  asChild
+                  variant="outline"
+                  className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
+                >
+                  <a
+                    href="https://www.hilton.com/en/hotels/iahwshh-hilton-houston-post-oak-by-the-galleria/" // Replace with the real link when available
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit Website
+                  </a>
                 </Button>
               </div>
-              
+
               {/* Right side - Image */}
               <div className="lg:w-1/2">
-                <img src="/lovable-uploads/AGvenue.png" alt="Dunhaven Manor Hotel" className="w-full h-[500px] object-cover filter grayscale" />
+                <img
+                  src="/lovable-uploads/hilton.png"
+                  alt="Hilton Houston Post Oak by the Galleria"
+                  className="w-full h-[500px] object-cover filter grayscale"
+                />
               </div>
             </div>
           </div>
