@@ -35,7 +35,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apijudeandbrianna"
       },
-      "lastPushTimeStamp": "2025-03-30T20:21:54.301Z",
+      "lastPushTimeStamp": "2025-03-30T20:23:37.864Z",
       "lastPushDirHash": "IAhswoPgVPqeBz8fVpC4Lpaw4iY="
     }
   },
@@ -69,7 +69,17 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-judeandbrianna-dev-0d1d9-deployment/amplify-cfn-templates/auth/judeandbrianna2a06d062-cloudformation-template.json",
         "logicalId": "authjudeandbrianna2a06d062"
       },
-      "lastPushTimeStamp": "2025-03-30T20:22:04.517Z"
+      "lastPushTimeStamp": "2025-03-30T20:23:38.403Z",
+      "output": {
+        "UserPoolId": "us-east-2_FblHpSGvi",
+        "AppClientIDWeb": "6d7mq4rl0n93onal59omdnr15c",
+        "AppClientID": "1hsgfmvlbogebvnjm6iqhok2c7",
+        "IdentityPoolId": "us-east-2:5775b74c-e847-4090-bd13-a5b7aed1c1ec",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:772162467973:userpool/us-east-2_FblHpSGvi",
+        "IdentityPoolName": "judeandbrianna2a06d062_identitypool_2a06d062__dev",
+        "UserPoolName": "judeandbrianna2a06d062_userpool_2a06d062"
+      },
+      "lastPushDirHash": "+czaeGlJsNfvm3wY5IpmD2ls0TM="
     }
   }
 }
