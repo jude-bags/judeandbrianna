@@ -70,6 +70,7 @@ export default function RSVPForm() {
             timestamp: new Date().toISOString(),
           },
         },
+        authMode: 'apiKey', // 👈 required for unauthenticated public users
       });
 
       toast({
