@@ -195,7 +195,7 @@ const TravelAndStay = () => {
                   <div>
                     <h3 className="font-serif text-xl mb-2 tracking-wide">Transportation to the Wedding</h3>
                     <p className="leading-relaxed text-gray-800">
-                      I've had the best experience renting from Sixt Car Rental, but any other car rental company is also okay. Uber and Lyft are also options.
+                      We've had the best experience renting from Sixt Car Rental, but any other car rental company is also okay. Uber and Lyft are also options.
                     </p>
                   </div>
                 </div>

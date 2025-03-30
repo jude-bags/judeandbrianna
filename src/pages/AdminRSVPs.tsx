@@ -18,6 +18,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Download, ChevronLeft, ChevronRight, Trash2, Home } from 'lucide-react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import { fetchAuthSession } from 'aws-amplify/auth';
+
 
 interface RSVP {
   id: string;
@@ -53,9 +55,15 @@ export default function AdminRSVPs() {
   useEffect(() => {
     const fetchRSVPs = async () => {
       try {
+        const session = await fetchAuthSession();
+        if (!session.tokens?.idToken) {
+          console.warn("User is not authenticated yet.");
+          return;
+        }
+  
         const result = await client.graphql({ query: listRSVPS });
         if ('data' in result && result.data?.listRSVPS?.items) {
-          setRsvps(result.data.listRSVPS.items as RSVP[]);
+          setRsvps(result.data.listRSVPS.items);
         } else {
           console.error('No data returned from listRSVPS query');
         }
