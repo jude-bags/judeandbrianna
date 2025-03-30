@@ -115,12 +115,48 @@ const TravelAndStay = () => {
               <div className="lg:w-1/2 pt-10 lg:pt-20">
                 <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
-                  We are Actively putting together hotel options for your convenience, Stay Tuned!
+                  We wanted to share a convenient hotel option for your stay during our wedding weekend. This hotel is located just 13 minutes from the venue, offering easy access for all events.
+                  Please note, the hotel is approximately 30 miles from Houston. Additionally, we will be providing a discount code later this week, so stay tuned for that!
+                  We hope this option helps with your travel plans, and we'll share more details soon.
+                  {/* Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
+                                dining restaurant, and stunning views of the Irish countryside. */}
+                </p>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
+                >
+                  <a
+                    href="https://examplehotel.com" // Replace with actual hotel URL
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit Website
+                  </a>
+                </Button>
+              </div>
+              {/* Right side - Text */}
+              <div className="lg:w-1/2 pt-10 lg:pt-20">
+                <h3 className="font-serif text-2xl mb-6 tracking-wide">Hotel Coming soon</h3>
+                <p className="mb-6 leading-relaxed max-w-[500px]">
+                We wanted to share a convenient hotel option for your stay during our wedding weekend. This hotel is located just 13 minutes from the venue, offering easy access for all events.
+                Please note, the hotel is approximately 30 miles from Houston. Additionally, we will be providing a discount code later this week, so stay tuned for that!
+                We hope this option helps with your travel plans, and we'll share more details soon.  
                   {/* Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
                   dining restaurant, and stunning views of the Irish countryside. */}
                 </p>
-                <Button variant="outline" className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white">
-                  {/* Visit Website */}
+                <Button
+                  asChild
+                  variant="outline"
+                  className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
+              >
+               <a
+                  href="https://www.hyatt.com/hyatt-place/en-US/houzv-hyatt-place-houston-nw-vintage-park" // Replace with actual hotel URL
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit Website
+                </a>
                 </Button>
               </div>
             </div>
