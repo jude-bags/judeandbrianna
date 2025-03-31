@@ -281,7 +281,7 @@ export default function AdminRSVPs() {
       cell: info => {
         const restrictions = info.getValue();
         return restrictions ? (
-          <div className="text-teal-300 max-w-[200px] truncate" title={restrictions}>
+          <div className="text-teal-300 whitespace-normal break-words">
             {restrictions}
           </div>
         ) : (
@@ -303,10 +303,10 @@ export default function AdminRSVPs() {
             <option value="">Unassigned</option>
             <option value="Bride's Family">Bride's Family</option>
             <option value="Groom's Family">Groom's Family</option>
-            <option value="Bride's Friends">Groom's Friends</option>
-            <option value="Groom's Friends">Bride's Friends</option>
-            <option value="Bride's Colleague">Groom's Colleagues</option>
-            <option value="Groom's Colleague">Bride's Colleagues</option>
+            <option value="Groom's Friends">Groom's Friends</option>
+            <option value="Bride's Friends">Bride's Friends</option>
+            <option value="Groom's Colleague">Groom's Colleagues</option>
+            <option value="Bride's Colleague">Bride's Colleagues</option>
           </select>
         );
       },
@@ -352,10 +352,10 @@ export default function AdminRSVPs() {
   columnHelper.accessor('adminNote', {
       header: 'Note',
       cell: info => (
-        <Input
-          className="bg-zinc-800/50 border-zinc-700 text-white focus:border-blue-500 transition-colors"
+        <textarea
           defaultValue={info.getValue() as string}
           onBlur={e => handleUpdate(info.row.original.id, { adminNote: e.target.value })}
+          className="bg-zinc-800/50 border-zinc-700 text-white p-2 rounded w-full min-h-[50px] resize-y"
           placeholder="Add note..."
         />
       ),
