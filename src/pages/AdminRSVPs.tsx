@@ -112,7 +112,7 @@ export default function AdminRSVPs() {
       const matchesHotel = hotelFilter ? rsvp.needsHotelRoom === hotelFilter : true;
       return matchesGlobal && matchesAttending && matchesGuest && matchesFood && matchesGroup && matchesHotel;
     });
-  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter]);
+  }, [rsvps, globalFilter, attendingFilter, guestFilter, foodFilter, groupFilter, hotelFilter]);
 
   const clearFilters = () => {
     setGlobalFilter('');
