@@ -50,7 +50,7 @@ const OurStory = () => {
         
         <div className="max-w-2xl mx-auto text-center mb-20">
           <p className="text-base leading-relaxed mb-16 max-w-sm mx-auto">
-          She set high, and he spiked down, and together we dominated the game. At the end, we high-fived and, in that split second, looked into each other's eyes. That’s when we both thought, "This could really be something"
+          She set high, and he spiked down, and together we dominated the game. At the end, we high-fived and, in that split second, looked into each other's eyes. That’s when we both thought, "This could really be something".
           </p>
           
           <motion.div initial={{
@@ -66,7 +66,7 @@ const OurStory = () => {
           </motion.div>
           
           <p className="text-base leading-relaxed mt-16 mb-8 max-w-xs mx-auto">
-          Since then, we've faced challenges, celebrated wins, and learned from life's ups and downs. Through it all, we’ve grown stronger in love, learning to put God first and cherish each day together. Our journey has been filled with laughter, joy, and countless beautiful moments
+          Since then, we've faced challenges, celebrated wins, and learned from life's ups and downs. Through it all, we’ve grown stronger in love, learning to put God first and cherish each day together. Our journey has been filled with laughter, joy, and countless beautiful moments.
           </p>
           
           <p className="text-base leading-relaxed mt-16 max-w-xs mx-auto">
