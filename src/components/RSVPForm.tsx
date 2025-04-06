@@ -57,12 +57,12 @@ export default function RSVPForm() {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      await client.graphql({
+      // ✅ Step 1: Save the RSVP data via GraphQL
+      const response = await client.graphql({
         query: createRSVP,
         variables: {
           input: {
@@ -70,15 +70,21 @@ export default function RSVPForm() {
             timestamp: new Date().toISOString(),
           },
         },
-        authMode: 'apiKey', // 👈 required for unauthenticated public users
+        authMode: 'apiKey', // Ensure this matches your AppSync auth configuration
       });
-
+  
+      console.log("GraphQL response:", response);
+  
+      if (!response?.data?.createRSVP) {
+        throw new Error("RSVP creation returned empty response.");
+      }
+  
       toast({
         title: "RSVP Submitted",
         description: "Thank you for your response. We look forward to celebrating with you!",
         duration: 5000,
       });
-
+  
       setFormData({
         firstName: '',
         lastName: '',
@@ -91,16 +97,65 @@ export default function RSVPForm() {
         needsHotelRoom: '',
         numberOfRooms: '',
       });
-    } catch (error) {
-      console.error("Error submitting RSVP:", error);
+    } catch (error: any) {
+      console.error("GraphQL error submitting RSVP:", error);
+  
+      if (error?.errors) {
+        console.error("GraphQL errors:", error.errors);
+      }
+  
       toast({
         title: "Submission Failed",
-        description: "Something went wrong. Please try again.",
+        description: "Something went wrong saving your RSVP. Please try again.",
         duration: 5000,
         variant: "destructive",
       });
     }
   };
+  
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await client.graphql({
+  //       query: createRSVP,
+  //       variables: {
+  //         input: {
+  //           ...formData,
+  //           timestamp: new Date().toISOString(),
+  //         },
+  //       },
+  //       authMode: 'apiKey', // 👈 required for unauthenticated public users
+  //     });
+
+  //     toast({
+  //       title: "RSVP Submitted",
+  //       description: "Thank you for your response. We look forward to celebrating with you!",
+  //       duration: 5000,
+  //     });
+
+  //     setFormData({
+  //       firstName: '',
+  //       lastName: '',
+  //       email: '',
+  //       attending: '',
+  //       bringingGuest: '',
+  //       guestFirstName: '',
+  //       guestLastName: '',
+  //       foodRestrictions: '',
+  //       needsHotelRoom: '',
+  //       numberOfRooms: '',
+  //     });
+  //   } catch (error) {
+  //     console.error("Error submitting RSVP:", error);
+  //     toast({
+  //       title: "Submission Failed",
+  //       description: "Something went wrong. Please try again.",
+  //       duration: 5000,
+  //       variant: "destructive",
+  //     });
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit} className="bg-white/80 backdrop-blur-sm p-8 md:p-12 w-full max-w-2xl mx-auto">
