@@ -1,7 +1,8 @@
-type RSVP @model @auth(rules: [
-  { allow: public, operations: [create] },
-  { allow: private, provider: userPools },
-  { allow: groups, groups: ["Admin"] }
+type RSVP @model 
+@auth(rules: [
+  { allow: public, provider: apiKey, operations: [create] }, # 👈 Required fix
+  { allow: private, provider: userPools },                   # 👈 Cognito-authenticated users
+  { allow: groups, groups: ["Admin"], operations: [read, update, delete] }
 ]) {
   id: ID!
   firstName: String!
