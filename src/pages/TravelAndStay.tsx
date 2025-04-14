@@ -150,7 +150,7 @@ const TravelAndStay = () => {
                   className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
                 >
                   <a
-                    href="https://www.hilton.com/en/hotels/iahwshh-hilton-houston-post-oak-by-the-galleria/" // Replace with the real link when available
+                    href="https://www.hyatt.com/hyatt-place/en-US/houzv-hyatt-place-houston-nw-vintage-park?corp_id=G-EDWD" // Replace with the real link when available
                     target="_blank"
                     rel="noopener noreferrer"
                   >
