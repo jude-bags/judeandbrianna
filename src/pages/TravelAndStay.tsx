@@ -116,7 +116,7 @@ const TravelAndStay = () => {
                 <h3 className="font-serif text-2xl mb-6 tracking-wide">HYATT PLACE HOUSTON NW VINTAGE PARK</h3>
                 <p className="mb-6 leading-relaxed max-w-[500px]">
                 We wanted to share a convenient hotel option for your stay during our wedding weekend. This hotel is located just 13 minutes from the venue, offering easy access for all events.
-                Please note, the hotel is approximately 30 miles from Houston. Additionally, we will be providing a discount code later this week, so stay tuned for that!
+                Please note, the hotel is approximately 30 miles from Houston. Additionally, a discount code is applied to the Hyatt if you follow the link.
                 We hope this option helps with your travel plans, and we'll share more details soon.  
                   {/* Situated in close proximity to Dunhaven Castle, this hotel provides well-appointed rooms, a tranquil spa, a fine 
                   dining restaurant, and stunning views of the Irish countryside. */}
@@ -127,7 +127,7 @@ const TravelAndStay = () => {
                   className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
               >
                <a
-                  href="https://www.hyatt.com/hyatt-place/en-US/houzv-hyatt-place-houston-nw-vintage-park" // Replace with actual hotel URL
+                  href="https://www.hyatt.com/hyatt-place/en-US/houzv-hyatt-place-houston-nw-vintage-park?corp_id=G-EDWD" // Replace with actual hotel URL
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -150,7 +150,7 @@ const TravelAndStay = () => {
                   className="text-xs uppercase tracking-wider h-12 px-8 border-black hover:bg-black hover:text-white"
                 >
                   <a
-                    href="https://www.hyatt.com/hyatt-place/en-US/houzv-hyatt-place-houston-nw-vintage-park?corp_id=G-EDWD" // Replace with the real link when available
+                    href="https://www.hilton.com/en/hotels/iahwshh-hilton-houston-post-oak-by-the-galleria/" // Replace with the real link when available
                     target="_blank"
                     rel="noopener noreferrer"
                   >
