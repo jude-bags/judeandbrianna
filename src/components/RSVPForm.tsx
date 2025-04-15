@@ -17,7 +17,8 @@ type FormData = {
   numberOfRooms: string;
 };
 
-const client = generateClient();
+const client = generateClient({ authMode: 'apiKey' });
+
 
 export default function RSVPForm() {
   const { toast } = useToast();
