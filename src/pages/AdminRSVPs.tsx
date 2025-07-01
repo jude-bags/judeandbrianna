@@ -53,26 +53,41 @@ export default function AdminRSVPs() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchRSVPs = async () => {
-      try {
-        const session = await fetchAuthSession();
-        if (!session.tokens?.idToken) {
-          console.warn("User is not authenticated yet.");
-          return;
-        }
-  
-        const result = await client.graphql({ query: listRSVPS });
-        if ('data' in result && result.data?.listRSVPS?.items) {
-          setRsvps(result.data.listRSVPS.items);
-        } else {
-          console.error('No data returned from listRSVPS query');
-        }
-      } catch (error) {
-        console.error('Error fetching RSVPs:', error);
+  const fetchRSVPs = async () => {
+    try {
+      const session = await fetchAuthSession();
+      if (!session.tokens?.idToken) {
+        console.warn("User is not authenticated yet.");
+        return;
       }
-    };
-    fetchRSVPs();
-  }, []);
+
+      let allItems: RSVP[] = [];
+      let nextToken: string | null | undefined = null;
+
+      do {
+        const result = await client.graphql({
+          query: listRSVPS,
+          variables: { nextToken, limit: 100 }, // adjust limit as needed
+        });
+
+        if ('data' in result && result.data?.listRSVPS?.items) {
+          allItems = [...allItems, ...result.data.listRSVPS.items];
+          nextToken = result.data.listRSVPS.nextToken;
+        } else {
+          console.error('Unexpected data structure:', result);
+          break;
+        }
+      } while (nextToken);
+
+      setRsvps(allItems);
+    } catch (error) {
+      console.error('Error fetching RSVPs:', error);
+    }
+  };
+
+  fetchRSVPs();
+}, []);
+
 
   const handleUpdate = async (id: string, changes: Partial<RSVP>) => {
     await client.graphql({
